@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <router-link class="navbar-brand" to="/">
-        <img class="gws-logo" alt="GWS logo" src="../assets/greenLogo.png">
+      <gws-logo :customStyle="customLogoStyle"/>
     </router-link>
     <button
       class="navbar-toggler"
@@ -17,25 +17,33 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <router-link class="nav-link" to="/">
-            Home
-            <span class="sr-only">(current)</span>
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/about">About</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/login">Login</router-link>
-        </li>
+        <router-link class="nav-item" to="/" tag="li" active-class="active" exact>
+          <a class="nav-link">Home</a>
+        </router-link>
+        <router-link class="nav-item" to="/about" tag="li" active-class="active">
+          <a class="nav-link">About</a>
+        </router-link>
+        <router-link class="nav-item" to="/login" tag="li" active-class="active">
+          <a class="nav-link">Login</a>
+        </router-link>
       </ul>
     </div>
   </nav>
 </template>
 
-<style scoped>
-.gws-logo {
-    height: 50px;
-}
-</style>
+<script>
+import Logo from "@/components/Logo.vue";
+
+export default {
+  data() {
+    return {
+      customLogoStyle: {
+        height: "50px"
+      }
+    };
+  },
+  components: {
+    gwsLogo: Logo
+  }
+};
+</script>
