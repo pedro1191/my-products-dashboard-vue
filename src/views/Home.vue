@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img class="gws-logo" alt="GWS logo" src="../assets/greenLogo.png">
+    <HelloWorld/>
   </div>
 </template>
 
@@ -16,3 +16,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.gws-logo {
+  max-height: 250px;
+}
+</style>
