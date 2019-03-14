@@ -24,7 +24,7 @@
             <strong>admin</strong>.
           </small>
         </div>
-        <button type="submit" class="btn btn-outline-success">Log in</button>
+        <button type="submit" class="btn btn-outline-primary">Log in</button>
       </form>
     </div>
   </div>
@@ -32,12 +32,13 @@
 
 <style scoped>
 .login {
-  padding: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .login .form {
   text-align: left;
   max-width: 350px;
-  margin: 15px auto;
+  margin: auto;
 }
 </style>

@@ -28,6 +28,7 @@ export default {
 
 <style scoped>
 .home {
-  padding: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 </style>
