@@ -32,18 +32,18 @@
 </template>
 
 <script>
-import Logo from "@/components/Logo.vue";
+import Logo from '@/components/Logo.vue'
 
 export default {
-  data() {
+  data () {
     return {
       customLogoStyle: {
-        height: "50px"
+        height: '50px'
       }
-    };
+    }
   },
   components: {
     gwsLogo: Logo
   }
-};
+}
 </script>

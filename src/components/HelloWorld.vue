@@ -10,13 +10,13 @@
       >Generic Website App</a>, like the images and the catalog.
     </p>
     <p>But you must
-      <router-link to="/login">log in</router-link>first.
+      <router-link to="/login">log in</router-link> first.
     </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld"
-};
+  name: 'HelloWorld'
+}
 </script>

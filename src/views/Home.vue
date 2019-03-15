@@ -7,23 +7,23 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-import Logo from "@/components/Logo.vue";
+import HelloWorld from '@/components/HelloWorld.vue'
+import Logo from '@/components/Logo.vue'
 
 export default {
-  name: "home",
-  data() {
+  name: 'home',
+  data () {
     return {
       customLogoStyle: {
-        maxHeight: "150px"
+        maxHeight: '150px'
       }
-    };
+    }
   },
   components: {
     helloWorld: HelloWorld,
     gwsLogo: Logo
   }
-};
+}
 </script>
 
 <style scoped>

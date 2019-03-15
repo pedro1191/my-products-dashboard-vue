@@ -3,16 +3,16 @@
 </template>
 
 <script>
-import gwsLogo from "@/assets/blueLogo.png";
+import gwsLogo from '@/assets/blueLogo.png'
 
 export default {
-  data() {
+  data () {
     return {
       gwsLogo
-    };
+    }
   },
   props: {
     customStyle: Object
   }
-};
+}
 </script>
