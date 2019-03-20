@@ -8,15 +8,21 @@
         </div>
       </div>
     </div>
+    <gws-session-refresh></gws-session-refresh>
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
+import SessionRefresh from '@/components/SessionRefresh.vue'
 
 export default {
   components: {
-    gwsHeader: Header
+    gwsHeader: Header,
+    gwsSessionRefresh: SessionRefresh
+  },
+  created () {
+    this.$store.dispatch('tryAutoLogin')
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>Generic Website Admin App</h1>
+    <h1>Generic Website Dashboard App</h1>
     <p>This app was developed using Vue JS.<p>
     <p>It comunicates with a back end RESTful API developed in PHP using Laravel/Lumen.</p>
     <p>
