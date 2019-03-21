@@ -61,6 +61,14 @@
         </form>
       </div>
     </div>
+    <gws-modal v-if="modal.error" @close="onModalClose">
+      <div slot="header">Generic Website</div>
+      <div slot="body">{{ modal.message }}</div>
+      <button class="btn btn-primary" @click="onModalClose" slot="footer">OK</button>
+    </gws-modal>
+    <gws-modal v-if="modal.loading" @close="onModalClose">
+      <gws-spinner slot="body"></gws-spinner>
+    </gws-modal>
   </div>
 </template>
 
@@ -69,6 +77,8 @@ import axios from '@/axios-default'
 import router from '@/router'
 import { required, email } from 'vuelidate/lib/validators'
 import Logo from '@/components/Logo.vue'
+import Modal from '@/components/Modal.vue'
+import Spinner from '@/components/Spinner.vue'
 
 export default {
   data () {
@@ -83,6 +93,11 @@ export default {
       },
       customLogoStyle: {
         height: '50px'
+      },
+      modal: {
+        loading: false,
+        error: false,
+        message: null
       }
     }
   },
@@ -114,9 +129,12 @@ export default {
   },
   methods: {
     onSubmit () {
+      this.modal.loading = true
+
       axios.post('/auth/login', this.form)
         .then(response => {
           this.$store.dispatch('login', response.data)
+          this.modal.loading = false
           router.replace('/')
         })
         .catch(error => {
@@ -124,17 +142,29 @@ export default {
         })
     },
     onHttpRequestError (error) {
+      this.modal.loading = false
+      this.modal.error = true
+
       switch (error.response.status) {
         case 422:
+          this.modal.message = error.response.data.message
+
           const errors = error.response.data.errors
 
           for (let key in errors) {
             this.formValidationMessages[key] = errors[key].join(' ')
           }
+
           break
         default:
+          this.modal.message = 'Oops! Something went wrong.'
           console.log(error.response)
       }
+    },
+    onModalClose () {
+      this.modal.loading = false
+      this.modal.error = false
+      this.modal.message = null
     }
   },
   validations: {
@@ -149,7 +179,9 @@ export default {
     }
   },
   components: {
-    gwsLogo: Logo
+    gwsLogo: Logo,
+    gwsModal: Modal,
+    gwsSpinner: Spinner
   }
 }
 </script>
