@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
     <router-link class="navbar-brand" to="/">
       <gws-logo :customStyle="customLogoStyle"/>
     </router-link>
