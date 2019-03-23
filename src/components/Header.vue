@@ -83,7 +83,6 @@ export default {
   border: none;
   background-color: transparent;
   outline: none;
-  margin: auto;
   cursor: pointer;
 }
 </style>

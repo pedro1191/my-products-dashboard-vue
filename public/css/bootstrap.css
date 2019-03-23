@@ -1886,7 +1886,7 @@ pre code {
   background-color: #fff;
   border-color: #80bdff;
   outline: 0;
-  /* box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .form-control::-webkit-input-placeholder {
@@ -2390,7 +2390,7 @@ textarea.form-control {
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.25rem;
+  border-radius: 0rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -5312,6 +5312,8 @@ a.badge-dark:focus, a.badge-dark.focus {
   display: flex;
   -ms-flex-align: start;
   align-items: flex-start;
+  background-color: #f8f9fa;
+  padding: 1rem;
 }
 
 .media-body {

@@ -26,7 +26,7 @@ export default {
     return {
       loading: false,
       requestCompleted: false,
-      requestResponse: ''
+      requestResponse: null
     }
   },
   computed: {
@@ -41,7 +41,7 @@ export default {
     onRefreshSession () {
       this.loading = true
 
-      axios.post('/auth/refresh', {}, { headers: { 'Authorization': `Bearer ${this.$store.getters.jwt.access_token}` } })
+      axios.put('/auth/refresh', {}, { headers: { 'Authorization': `Bearer ${this.$store.getters.jwt.access_token}` } })
         .then(response => {
           this.onHttpRequestSuccess(response)
         })
@@ -64,7 +64,7 @@ export default {
     },
     onUserConfirmation () {
       this.requestCompleted = false
-      this.requestResponse = ''
+      this.requestResponse = null
     }
   }
 }
@@ -81,6 +81,7 @@ export default {
   opacity: 0.6;
   width: 11rem;
   height: 11rem;
+  text-align: center;
 }
 
 .card-link-button {

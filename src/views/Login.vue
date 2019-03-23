@@ -6,50 +6,45 @@
       </div>
       <div class="card-body">
         <form>
-          <div
-            class="form-group"
-            :class="{ 'form-group-error': ($v.form.email.$error || formValidationMessages.email) }">
-            <label for="exampleInputEmail1">Email</label>
+          <div class="form-group">
+            <label for="email">Email</label>
             <input
               type="email"
               class="form-control"
-              id="exampleInputEmail1"
+              id="email"
               aria-describedby="emailHelp"
-              v-model.trim="$v.form.email.$model">
-            <small
-              class="error"
+              v-model.trim="$v.form.email.$model"
+              :class="{ 'is-invalid': ($v.form.email.$error || formValidationMessages.email) }">
+            <div
+              class="invalid-feedback"
               v-if="formValidationMessages.email">
               {{ formValidationMessages.email }}
-            </small>
-            <div>
-              <small
-                id="emailHelp"
-                class="text-muted">
-                The default email is <strong>admin@genericwebsite.com</strong>.
-              </small>
             </div>
+            <small
+              id="emailHelp"
+              class="text-muted">
+              The default email is <strong>admin@myproducts.com</strong>.
+            </small>
           </div>
-          <div
-            class="form-group"
-            :class="{ 'form-group-error': ($v.form.password.$error || formValidationMessages.password) }">
-            <label for="exampleInputPassword1">Password</label>
+          <div class="form-group">
+            <label for="password">Password</label>
             <input
               type="password"
               class="form-control"
-              id="exampleInputPassword1"
-              v-model.trim="$v.form.password.$model">
-            <small
-              class="error"
+              id="password"
+              aria-describedby="passwordHelp"
+              v-model.trim="$v.form.password.$model"
+              :class="{ 'is-invalid': ($v.form.password.$error || formValidationMessages.password) }">
+            <div
+              class="invalid-feedback"
               v-if="formValidationMessages.password">
               {{ formValidationMessages.password }}
-            </small>
-            <div>
-              <small
-                id="passwordHelp"
-                class="text-muted">
-                The default password is <strong>admin123</strong>.
-              </small>
             </div>
+            <small
+              id="passwordHelp"
+              class="text-muted">
+              The default password is <strong>admin123</strong>.
+            </small>
           </div>
           <button
             type="submit"
@@ -61,12 +56,12 @@
         </form>
       </div>
     </div>
-    <gws-modal v-if="modal.error" @close="onModalClose">
+    <gws-modal v-if="modal.error">
       <div slot="header">Generic Website</div>
       <div slot="body">{{ modal.message }}</div>
       <button class="btn btn-primary" @click="onModalClose" slot="footer">OK</button>
     </gws-modal>
-    <gws-modal v-if="modal.loading" @close="onModalClose">
+    <gws-modal v-if="modal.loading">
       <gws-spinner slot="body"></gws-spinner>
     </gws-modal>
   </div>
@@ -74,7 +69,6 @@
 
 <script>
 import axios from '@/axios-default'
-import router from '@/router'
 import { required, email } from 'vuelidate/lib/validators'
 import Logo from '@/components/Logo.vue'
 import Modal from '@/components/Modal.vue'
@@ -84,8 +78,8 @@ export default {
   data () {
     return {
       form: {
-        email: null,
-        password: null
+        email: 'admin@myproducts.com',
+        password: 'admin123'
       },
       formValidationMessages: {
         email: null,
@@ -112,16 +106,16 @@ export default {
   watch: {
     formEmail: function () {
       if (!this.$v.form.email.email) {
-        this.formValidationMessages.email = 'You must provide a valid email.'
+        this.formValidationMessages.email = 'The email must be a valid email address.'
       } else if (!this.$v.form.email.required) {
-        this.formValidationMessages.email = 'Field is required.'
+        this.formValidationMessages.email = 'The email field is required.'
       } else {
         this.formValidationMessages.email = null
       }
     },
     formPassword: function () {
       if (!this.$v.form.password.required) {
-        this.formValidationMessages.password = 'Field is required.'
+        this.formValidationMessages.password = 'The passowrd field is required.'
       } else {
         this.formValidationMessages.password = null
       }
@@ -135,7 +129,7 @@ export default {
         .then(response => {
           this.$store.dispatch('login', response.data)
           this.modal.loading = false
-          router.replace('/')
+          this.$router.push({ name: 'home' })
         })
         .catch(error => {
           this.onHttpRequestError(error)
@@ -144,6 +138,7 @@ export default {
     onHttpRequestError (error) {
       this.modal.loading = false
       this.modal.error = true
+      console.log(error.response)
 
       switch (error.response.status) {
         case 422:
@@ -158,7 +153,6 @@ export default {
           break
         default:
           this.modal.message = 'Oops! Something went wrong.'
-          console.log(error.response)
       }
     },
     onModalClose () {
@@ -197,28 +191,15 @@ export default {
   margin: auto;
 }
 
+.card-header {
+  text-align: center;
+}
+
 .login .card form {
   text-align: left;
 }
 
 .form-group small {
   color: #6c757d;
-}
-
-.form-group-error label,
-.form-group-error small {
-  color: #dc3545;
-}
-
-.form-group-error input {
-  border: 1px solid #dc3545;
-}
-
-.form-group-error .error {
-  display: block;
-}
-
-.error {
-  display: none;
 }
 </style>

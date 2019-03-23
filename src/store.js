@@ -47,20 +47,39 @@ export default new Vuex.Store({
       localStorage.setItem('jwt', JSON.stringify(jwt))
     },
     tryAutoLogin ({ dispatch }) {
-      const jwt = JSON.parse(localStorage.getItem('jwt'))
+      dispatch('checkTokenValidity')
+        .then(jwt => {
+          dispatch('login', jwt)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    checkTokenValidity () {
+      return new Promise((resolve, reject) => {
+        const jwt = JSON.parse(localStorage.getItem('jwt'))
 
-      if (jwt === null || !jwt.access_token || !jwt.expiration_date) {
-        return
-      }
-      const expirationDateInMilliseconds = jwt.expiration_date
-      const now = new Date()
+        if (jwt === null || !jwt.access_token || !jwt.expiration_date) {
+          return reject(new Error('The token was invalid.'))
+        }
+        const expirationDateInMilliseconds = jwt.expiration_date
+        const now = new Date()
 
-      if (expirationDateInMilliseconds <= now.getTime()) {
-        return
-      }
-      jwt.expires_in = ((expirationDateInMilliseconds - now.getTime()) / 1000)
+        if (expirationDateInMilliseconds <= now.getTime()) {
+          return reject(new Error('The token was expired.'))
+        }
+        jwt.expires_in = ((expirationDateInMilliseconds - now.getTime()) / 1000)
 
-      dispatch('login', jwt)
+        axios.get('/auth/me', { headers: { 'Authorization': `Bearer ${jwt.access_token}` } })
+          .then(response => {
+            console.log(response)
+            return resolve(jwt)
+          })
+          .catch(error => {
+            console.log(error.response)
+            return reject(new Error('The token was invalid or expired.'))
+          })
+      })
     },
     refreshSession ({ dispatch }, jwt) {
       dispatch('destroySessionTimers')

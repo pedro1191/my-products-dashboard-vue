@@ -30,5 +30,6 @@ export default {
 .home {
   padding-top: 15px;
   padding-bottom: 15px;
+  text-align: center;
 }
 </style>
