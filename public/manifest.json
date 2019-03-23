@@ -1,6 +1,6 @@
 {
-  "name": "generic-web-site-admin-vue",
-  "short_name": "generic-web-site-admin-vue",
+  "name": "My Products Dashboard",
+  "short_name": "My Products Dashboard",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",

@@ -72,7 +72,7 @@
       </div>
     </div>
     <gws-modal v-if="modal.success || modal.error">
-      <div slot="header">Generic Website</div>
+      <div slot="header"> My Products</div>
       <div slot="body">{{ modal.message }}</div>
       <button class="btn btn-primary" @click="onModalClose" slot="footer">OK</button>
     </gws-modal>

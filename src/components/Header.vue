@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <router-link class="navbar-brand" to="/">
       <gws-logo :customStyle="customLogoStyle"/>
     </router-link>
@@ -84,5 +84,10 @@ export default {
   background-color: transparent;
   outline: none;
   cursor: pointer;
+  margin: auto;
+}
+
+.nav-item {
+  text-align: center;
 }
 </style>

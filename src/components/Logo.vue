@@ -1,5 +1,5 @@
 <template>
-  <img alt="GWS logo" :src="gwsLogo" :style="customStyle">
+  <img alt="My Products logo" :src="gwsLogo" :style="customStyle">
 </template>
 
 <script>
