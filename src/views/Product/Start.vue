@@ -9,7 +9,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Search..."
+            placeholder="Search by name..."
             @input="onSearch"
             v-model="query">
         </div>
@@ -22,7 +22,7 @@
           <div class="media-body">
             <div class="row">
               <div class="col-md-8 col-lg-9">
-                <h5 class="mt-0 mb-1"><strong>{{ product.name }}</strong></h5>
+                <h5 class="mt-0 mb-1"><strong>{{ product.name }} - ({{ product.category.data.name }})</strong></h5>
                 {{ product.description }}
               </div>
               <div class="col-md-4 col-lg-3 my-2 actions">
@@ -72,9 +72,9 @@ export default {
   computed: {
     urlSearch () {
       if (this.query) {
-        return `/products?name=${this.query}`
+        return `/products?include=category&name=${this.query}`
       }
-      return '/products'
+      return '/products?include=category'
     }
   },
   methods: {

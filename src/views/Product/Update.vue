@@ -69,6 +69,27 @@
               </div>
             </div>
           </div>
+          <div class="form-group">
+            <label for="category">Category*</label>
+            <select
+              class="form-control"
+              id="category"
+              v-model="form.category_id"
+              :class="{ 'is-invalid': ($v.form.category_id.$error || formValidationMessages.category_id) }"
+            >
+              <option
+                v-for="category in categories"
+                :key="category.id"
+                :value="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+            <div
+              class="invalid-feedback"
+              v-if="formValidationMessages.category_id">
+              {{ formValidationMessages.category_id }}
+            </div>
+          </div>
           <button
             type="submit"
             class="btn btn-outline-success"
@@ -98,15 +119,25 @@ import Spinner from '@/components/Spinner.vue'
 
 export default {
   created () {
-    this.loading = true
+    this.modal.loading = true
 
-    axios.get(`/products/${this.$route.params.id}`)
+    axios.get('/categories')
       .then(response => {
         console.log(response.data)
-        this.loading = false
-        this.form.name = response.data.data.name
-        this.form.description = response.data.data.description
-        this.current_image = response.data.data.image
+        this.categories = response.data.data
+
+        axios.get(`/products/${this.$route.params.id}?include=category`)
+          .then(response => {
+            console.log(response.data)
+            this.modal.loading = false
+            this.form.name = response.data.data.name
+            this.form.description = response.data.data.description
+            this.current_image = response.data.data.image
+            this.form.category_id = response.data.data.category.data.id
+          })
+          .catch(error => {
+            this.onHttpRequestError(error)
+          })
       })
       .catch(error => {
         this.onHttpRequestError(error)
@@ -118,14 +149,17 @@ export default {
         name: null,
         description: null,
         image: null,
+        category_id: null,
         _method: 'PUT' // For Laravel/Lumen
       },
-      current_image: null,
       formValidationMessages: {
         name: null,
         description: null,
-        image: null
+        image: null,
+        category_id: null
       },
+      current_image: null,
+      categories: [],
       modal: {
         loading: false,
         success: false,
@@ -143,6 +177,9 @@ export default {
     },
     formImage () {
       return this.form.image
+    },
+    formCategory () {
+      return this.form.category_id
     }
   },
   watch: {
@@ -169,6 +206,13 @@ export default {
         this.formValidationMessages.image = 'The image may not be greater than 128 kilobytes.'
       } else {
         this.formValidationMessages.image = null
+      }
+    },
+    formCategory: function () {
+      if (!this.$v.form.category_id.required) {
+        this.formValidationMessages.category_id = 'The category field is required.'
+      } else {
+        this.formValidationMessages.category_id = null
       }
     }
   },
@@ -247,6 +291,9 @@ export default {
           if (!value) return true
           return (value.size <= 128000)
         }
+      },
+      category_id: {
+        required
       }
     }
   },

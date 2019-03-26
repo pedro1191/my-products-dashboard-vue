@@ -36,6 +36,14 @@
                     <img :alt="form.name" :src="form.image" class="thumbnail">
                 </div>
               </div>
+              <div class="form-group">
+                <label for="category">Category</label>
+                <div
+                  class="text-muted"
+                  id="category">
+                  {{ form.category_name }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -65,15 +73,16 @@ import Spinner from '@/components/Spinner.vue'
 
 export default {
   created () {
-    this.loading = true
+    this.modal.loading = true
 
-    axios.get(`/products/${this.$route.params.id}`)
+    axios.get(`/products/${this.$route.params.id}?include=category`)
       .then(response => {
         console.log(response.data)
-        this.loading = false
+        this.modal.loading = false
         this.form.name = response.data.data.name
         this.form.description = response.data.data.description
         this.form.image = response.data.data.image
+        this.form.category_name = response.data.data.category.data.name
       })
       .catch(error => {
         this.onHttpRequestError(error)
@@ -84,7 +93,8 @@ export default {
       form: {
         name: null,
         description: null,
-        image: null
+        image: null,
+        category_name: null
       },
       modal: {
         loading: false,
