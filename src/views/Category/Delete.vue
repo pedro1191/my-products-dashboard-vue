@@ -1,0 +1,147 @@
+<template>
+  <div class="delete">
+    <div class="back-button">
+      <button class="btn btn-light" @click="goBack">&laquo; Go Back</button>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        Delete Category
+      </div>
+      <div class="card-body">
+        <div class="alert alert-danger">Are you sure you want to delete this category and all its products?</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="form">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <div
+                  class="text-muted"
+                  id="name">
+                  {{ form.name }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-outline-danger"
+          @click.prevent="onSubmit">
+          Delete
+        </button>
+      </div>
+    </div>
+    <gws-modal v-if="modal.success || modal.error">
+      <div slot="header">My Products</div>
+      <div slot="body">{{ modal.message }}</div>
+      <button class="btn btn-primary" @click="onModalClose" slot="footer">OK</button>
+    </gws-modal>
+    <gws-modal v-if="modal.loading">
+      <gws-spinner slot="body"></gws-spinner>
+    </gws-modal>
+  </div>
+</template>
+
+<script>
+import axios from '@/axios-default'
+import Modal from '@/components/Modal.vue'
+import Spinner from '@/components/Spinner.vue'
+
+export default {
+  created () {
+    this.loading = true
+
+    axios.get(`/categories/${this.$route.params.id}`)
+      .then(response => {
+        console.log(response.data)
+        this.loading = false
+        this.form.name = response.data.data.name
+      })
+      .catch(error => {
+        this.onHttpRequestError(error)
+      })
+  },
+  data () {
+    return {
+      form: {
+        name: null
+      },
+      modal: {
+        loading: false,
+        success: false,
+        error: false,
+        message: null
+      }
+    }
+  },
+  methods: {
+    onSubmit () {
+      this.modal.loading = true
+
+      axios.delete(`/categories/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.jwt.access_token}` } })
+        .then(response => {
+          this.modal.loading = false
+          this.modal.success = true
+          this.modal.message = 'Category deleted successfully'
+        })
+        .catch(error => {
+          this.onHttpRequestError(error)
+        })
+    },
+    onHttpRequestError (error) {
+      this.modal.loading = false
+      this.modal.error = true
+      console.log(error.response)
+
+      switch (error.response.status) {
+        case 404:
+          this.modal.message = 'The category was not found.'
+          break
+        default:
+          this.modal.message = 'Oops! Something went wrong.'
+      }
+    },
+    onModalClose () {
+      this.modal.loading = false
+      this.modal.message = null
+      this.modal.error = false
+
+      if (this.modal.success) {
+        this.modal.success = false
+        this.goBack()
+      }
+    },
+    goBack () {
+      this.$router.push({ name: 'categories' })
+    }
+  },
+  components: {
+    gwsModal: Modal,
+    gwsSpinner: Spinner
+  }
+}
+</script>
+
+<style scoped>
+.delete {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.delete .card {
+  max-width: 500px;
+  margin: auto;
+}
+
+.delete .card .form {
+  text-align: left;
+}
+
+.back-button {
+  margin-bottom: 1rem;
+}
+
+.btn-outline-danger {
+  margin-top: 1rem;
+}
+</style>

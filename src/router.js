@@ -66,6 +66,33 @@ const router = new Router({
           component: () => import(/* webpackChunkName: "productsDelete" */ './views/Product/Delete.vue')
         }
       ]
+    },
+    {
+      path: '/categories',
+      component: () => import(/* webpackChunkName: "categories" */ './views/Category/Category.vue'),
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          name: 'categories',
+          component: () => import(/* webpackChunkName: "categoriesStart" */ './views/Category/Start.vue')
+        },
+        {
+          path: 'insert',
+          name: 'categoriesInsert',
+          component: () => import(/* webpackChunkName: "categoriesInsert" */ './views/Category/Insert.vue')
+        },
+        {
+          path: ':id/update',
+          name: 'categoriesUpdate',
+          component: () => import(/* webpackChunkName: "categoriesUpdate" */ './views/Category/Update.vue')
+        },
+        {
+          path: ':id/delete',
+          name: 'categoriesDelete',
+          component: () => import(/* webpackChunkName: "categoriesDelete" */ './views/Category/Delete.vue')
+        }
+      ]
     }
   ]
 })
