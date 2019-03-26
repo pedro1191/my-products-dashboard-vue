@@ -52,12 +52,12 @@ import Spinner from '@/components/Spinner.vue'
 
 export default {
   created () {
-    this.loading = true
+    this.modal.loading = true
 
     axios.get(`/categories/${this.$route.params.id}`)
       .then(response => {
         console.log(response.data)
-        this.loading = false
+        this.modal.loading = false
         this.form.name = response.data.data.name
         this.form.description = response.data.data.description
         this.current_image = response.data.data.image
