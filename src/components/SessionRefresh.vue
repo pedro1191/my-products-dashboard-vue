@@ -78,7 +78,7 @@ export default {
   z-index: 9999;
   background-color: #007bff;
   color: #fff;
-  opacity: 0.6;
+  opacity: 0.75;
   width: 11rem;
   height: 11rem;
   text-align: center;

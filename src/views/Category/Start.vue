@@ -35,6 +35,12 @@
         <h1>No categories found =/</h1>
       </div>
     </div>
+    <gws-pagination
+      v-if="pagination.total_pages > 1"
+      :pagination="pagination"
+      @onLinkClicked="changePage($event)"
+    >
+    </gws-pagination>
     <gws-modal v-if="modal.error">
       <div slot="header">My Products</div>
       <div slot="body">{{ modal.message }}</div>
@@ -50,6 +56,7 @@
 import axios from '@/axios-default'
 import Modal from '@/components/Modal.vue'
 import Spinner from '@/components/Spinner.vue'
+import Pagination from '@/components/Pagination.vue'
 
 export default {
   created () {
@@ -60,6 +67,8 @@ export default {
       query: null,
       searchTimeout: null,
       categories: [],
+      pagination: {},
+      current_page: 1,
       modal: {
         loading: false,
         error: false,
@@ -68,11 +77,18 @@ export default {
     }
   },
   computed: {
-    urlSearch () {
-      if (this.query) {
-        return `/categories?name=${this.query}`
+    urlParams () {
+      const params = {
+        params: {
+          page: this.current_page
+        }
       }
-      return '/categories'
+
+      if (this.query) {
+        params.params['name'] = this.query
+      }
+
+      return params
     }
   },
   methods: {
@@ -80,15 +96,17 @@ export default {
       clearTimeout(this.searchTimeout)
 
       this.searchTimeout = setTimeout(() => {
+        this.current_page = 1
         this.getCategories()
       }, 500)
     },
     getCategories () {
       this.modal.loading = true
 
-      axios.get(this.urlSearch)
+      axios.get('/categories', this.urlParams)
         .then(response => {
           this.categories = response.data.data
+          this.pagination = response.data.meta.pagination
           this.modal.loading = false
         })
         .catch(error => {
@@ -109,11 +127,16 @@ export default {
       this.modal.loading = false
       this.modal.error = false
       this.modal.message = null
+    },
+    changePage (page) {
+      this.current_page = page
+      this.getCategories()
     }
   },
   components: {
     gwsModal: Modal,
-    gwsSpinner: Spinner
+    gwsSpinner: Spinner,
+    gwsPagination: Pagination
   }
 }
 </script>
