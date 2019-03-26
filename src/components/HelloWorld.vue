@@ -4,7 +4,7 @@
     <p>
       Here you can customize the product information for the
       <a
-        href="http://192.168.0.128:3001"
+        href="http://192.168.0.128:8088"
         target="_blank"
         rel="noopener"
       >My Products App</a>.
