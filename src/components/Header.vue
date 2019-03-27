@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
     <router-link class="navbar-brand" to="/">
-      <gws-logo :customStyle="customLogoStyle"/>
+      <gws-logo :customStyle="customLogoStyle"/> My Products
     </router-link>
     <button
       class="navbar-toggler"
