@@ -1,35 +1,37 @@
 <template>
   <div id="app">
-    <gws-header></gws-header>
+    <gws-navbar></gws-navbar>
+
     <div class="container">
       <div class="row">
         <div class="col">
-          <router-view/>
+          <router-view />
         </div>
       </div>
     </div>
+
     <gws-session-refresh></gws-session-refresh>
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
-import SessionRefresh from '@/components/SessionRefresh.vue'
+import Navbar from './components/Navbar.vue';
+import SessionRefresh from './components/SessionRefresh.vue';
 
 export default {
   components: {
-    gwsHeader: Header,
+    gwsNavbar: Navbar,
     gwsSessionRefresh: SessionRefresh
   },
-  created () {
-    this.$store.dispatch('tryAutoLogin')
+  created() {
+    this.$store.dispatch('tryAutoLogin');
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
