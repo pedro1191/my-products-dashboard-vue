@@ -2,6 +2,7 @@
 node_modules
 /dist
 Dockerfile
+nginx.conf
 
 /tests/e2e/reports/
 selenium-debug.log
