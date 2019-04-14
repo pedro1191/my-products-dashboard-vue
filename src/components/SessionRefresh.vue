@@ -19,55 +19,63 @@
 </template>
 
 <script>
-import axios from '@/axios-default'
+import axios from '@/axios-default';
 
 export default {
-  data () {
+  data() {
     return {
       loading: false,
       requestCompleted: false,
       requestResponse: null
-    }
+    };
   },
   computed: {
-    sessionRefresh () {
-      return this.$store.getters.isSessionEnding
+    sessionRefresh() {
+      return this.$store.getters.isSessionEnding;
     },
-    waitingUserConfirmation () {
-      return this.requestCompleted
+    waitingUserConfirmation() {
+      return this.requestCompleted;
     }
   },
   methods: {
-    onRefreshSession () {
-      this.loading = true
+    onRefreshSession() {
+      this.loading = true;
 
-      axios.put('/auth/refresh', {}, { headers: { 'Authorization': `Bearer ${this.$store.getters.jwt.access_token}` } })
+      axios
+        .put(
+          '/auth/refresh',
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.jwt.access_token}`
+            }
+          }
+        )
         .then(response => {
-          this.onHttpRequestSuccess(response)
+          this.onHttpRequestSuccess(response);
         })
         .catch(error => {
-          this.onHttpRequestError(error)
-        })
+          this.onHttpRequestError(error);
+        });
     },
-    onHttpRequestSuccess (response) {
-      this.requestResponse = 'Session refreshed successfully!'
-      this.requestCompleted = true
-      this.$store.dispatch('refreshSession', response.data)
-      this.loading = false
+    onHttpRequestSuccess(response) {
+      this.requestResponse = 'Session refreshed successfully!';
+      this.requestCompleted = true;
+      this.$store.dispatch('refreshSession', response.data);
+      this.loading = false;
     },
-    onHttpRequestError (error) {
-      console.log(error.response)
-      this.requestResponse = 'Oops! An error occurred...'
-      this.requestCompleted = true
-      this.$store.dispatch('warnForSessionRefresh', false)
-      this.loading = false
+    onHttpRequestError(error) {
+      this.requestResponse = 'Oops! An error occurred...';
+      this.requestCompleted = true;
+      this.$store.dispatch('warnForSessionRefresh', false);
+      this.loading = false;
     },
-    onUserConfirmation () {
-      this.requestCompleted = false
-      this.requestResponse = null
+    onUserConfirmation() {
+      this.requestCompleted = false;
+      this.requestResponse = null;
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -94,7 +102,8 @@ export default {
   padding: 5px 10px;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 2s;
 }
 
