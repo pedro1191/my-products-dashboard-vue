@@ -84,6 +84,7 @@ export default {
           }
         })
         .then(response => {
+          console.log(response.data);
           this.modal.loading = false;
           this.modal.success = true;
           this.modal.message = 'Category deleted successfully';
