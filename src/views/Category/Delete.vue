@@ -1,8 +1,10 @@
 <template>
   <div class="delete">
+
     <div class="back-button">
       <button class="btn btn-light" @click="goBack">&laquo; Go Back</button>
     </div>
+
     <div class="card">
       <div class="card-header">
         Delete Category
@@ -14,28 +16,25 @@
             <div class="form">
               <div class="form-group">
                 <label for="name">Name</label>
-                <div
-                  class="text-muted"
-                  id="name">
+                <div class="text-muted" id="name">
                   {{ form.name }}
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <button
-          type="submit"
-          class="btn btn-outline-danger"
-          @click.prevent="onSubmit">
+        <button type="submit" class="btn btn-outline-danger" @click.prevent="onSubmit">
           Delete
         </button>
       </div>
     </div>
+
     <gws-modal v-if="modal.success || modal.error">
-      <div slot="header">My Products</div>
+      <div slot="header">My Food</div>
       <div slot="body">{{ modal.message }}</div>
-      <button class="btn btn-primary" @click="onModalClose" slot="footer">OK</button>
+      <button class="btn btn-secondary" @click="onModalClose" slot="footer">OK</button>
     </gws-modal>
+
     <gws-modal v-if="modal.loading">
       <gws-spinner slot="body"></gws-spinner>
     </gws-modal>
@@ -43,25 +42,25 @@
 </template>
 
 <script>
-import axios from '@/axios-default'
-import Modal from '@/components/Modal.vue'
-import Spinner from '@/components/Spinner.vue'
+import axios from '@/axios-default';
+import Modal from '../../components/Modal.vue';
+import Spinner from '../../components/Spinner.vue';
 
 export default {
-  created () {
-    this.modal.loading = true
+  created() {
+    this.modal.loading = true;
 
-    axios.get(`/categories/${this.$route.params.id}`)
+    axios
+      .get(`/categories/${this.$route.params.id}`)
       .then(response => {
-        console.log(response.data)
-        this.modal.loading = false
-        this.form.name = response.data.data.name
+        this.modal.loading = false;
+        this.form.name = response.data.data.name;
       })
       .catch(error => {
-        this.onHttpRequestError(error)
-      })
+        this.onHttpRequestError(error);
+      });
   },
-  data () {
+  data() {
     return {
       form: {
         name: null
@@ -72,54 +71,58 @@ export default {
         error: false,
         message: null
       }
-    }
+    };
   },
   methods: {
-    onSubmit () {
-      this.modal.loading = true
+    onSubmit() {
+      this.modal.loading = true;
 
-      axios.delete(`/categories/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${this.$store.getters.jwt.access_token}` } })
+      axios
+        .delete(`/categories/${this.$route.params.id}`, {
+          headers: {
+            Authorization: `Bearer ${this.$store.getters.jwt.access_token}`
+          }
+        })
         .then(response => {
-          this.modal.loading = false
-          this.modal.success = true
-          this.modal.message = 'Category deleted successfully'
+          this.modal.loading = false;
+          this.modal.success = true;
+          this.modal.message = 'Category deleted successfully';
         })
         .catch(error => {
-          this.onHttpRequestError(error)
-        })
+          this.onHttpRequestError(error);
+        });
     },
-    onHttpRequestError (error) {
-      this.modal.loading = false
-      this.modal.error = true
-      console.log(error.response)
+    onHttpRequestError(error) {
+      this.modal.loading = false;
+      this.modal.error = true;
 
       switch (error.response.status) {
         case 404:
-          this.modal.message = 'The category was not found.'
-          break
+          this.modal.message = 'The category was not found.';
+          break;
         default:
-          this.modal.message = 'Oops! Something went wrong.'
+          this.modal.message = 'Oops! Something went wrong.';
       }
     },
-    onModalClose () {
-      this.modal.loading = false
-      this.modal.message = null
-      this.modal.error = false
+    onModalClose() {
+      this.modal.loading = false;
+      this.modal.message = null;
+      this.modal.error = false;
 
       if (this.modal.success) {
-        this.modal.success = false
-        this.goBack()
+        this.modal.success = false;
+        this.goBack();
       }
     },
-    goBack () {
-      this.$router.push({ name: 'categories' })
+    goBack() {
+      this.$router.push({ name: 'categories' });
     }
   },
   components: {
     gwsModal: Modal,
     gwsSpinner: Spinner
   }
-}
+};
 </script>
 
 <style scoped>

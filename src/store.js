@@ -72,7 +72,7 @@ export default new Vuex.Store({
 
         axios.get('/auth/me', { headers: { 'Authorization': `Bearer ${jwt.access_token}` } })
           .then(response => {
-            console.log(response)
+            console.log(response.data)
             return resolve(jwt)
           })
           .catch(error => {
@@ -113,7 +113,7 @@ export default new Vuex.Store({
     logoutOnServer({ getters }) {
       axios.delete('/auth/logout', { headers: { 'Authorization': `Bearer ${getters.jwt.access_token}` } })
         .then(response => {
-          console.log(response)
+          console.log(response.data)
         })
         .catch(error => {
           console.log(error.response)
