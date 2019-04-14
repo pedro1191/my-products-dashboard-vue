@@ -1,6 +1,6 @@
 {
-  "name": "My Products Dashboard",
-  "short_name": "My Products Dashboard",
+  "name": "My Food Dashboard",
+  "short_name": "My Food Dashboard",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -16,5 +16,5 @@
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#007bff"
+  "theme_color": "#343a40"
 }
