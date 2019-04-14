@@ -17,26 +17,26 @@ export default new Vuex.Store({
     sessionRefreshWarning: false
   },
   mutations: {
-    authUser (state, jwt) {
+    authUser(state, jwt) {
       state.jwt = jwt
     },
-    unauthUser (state) {
+    unauthUser(state) {
       state.jwt = {
         access_token: null,
         token_type: null,
         expires_in: null
       }
     },
-    setSessionTimerIds (state, timerIds) {
+    setSessionTimerIds(state, timerIds) {
       state.sessionRefreshTimerId = timerIds.sessionRefreshTimerId
       state.automaticLogoutTimerId = timerIds.automaticLogoutTimerId
     },
-    updateRefreshWarning (state, alert) {
+    updateRefreshWarning(state, alert) {
       state.sessionRefreshWarning = alert
     }
   },
   actions: {
-    login ({ commit, dispatch }, jwt) {
+    login({ commit, dispatch }, jwt) {
       const expirationTimeInMilliseconds = (jwt.expires_in * 1000)
       const now = new Date()
       const expirationDateInMilliseconds = (now.getTime() + expirationTimeInMilliseconds)
@@ -46,7 +46,7 @@ export default new Vuex.Store({
       commit('authUser', jwt)
       localStorage.setItem('jwt', JSON.stringify(jwt))
     },
-    tryAutoLogin ({ dispatch }) {
+    tryAutoLogin({ dispatch }) {
       dispatch('checkTokenValidity')
         .then(jwt => {
           dispatch('login', jwt)
@@ -55,7 +55,7 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    checkTokenValidity () {
+    checkTokenValidity() {
       return new Promise((resolve, reject) => {
         const jwt = JSON.parse(localStorage.getItem('jwt'))
 
@@ -81,12 +81,12 @@ export default new Vuex.Store({
           })
       })
     },
-    refreshSession ({ dispatch }, jwt) {
+    refreshSession({ dispatch }, jwt) {
       dispatch('destroySessionTimers')
       dispatch('warnForSessionRefresh', false)
       dispatch('login', jwt)
     },
-    createSessionTimers ({ commit, dispatch }, expirationTime) {
+    createSessionTimers({ commit, dispatch }, expirationTime) {
       const warnForSessionRefreshIn = (expirationTime - 60000)
 
       const sessionRefreshTimerId = setTimeout(() => {
@@ -99,18 +99,18 @@ export default new Vuex.Store({
 
       commit('setSessionTimerIds', { sessionRefreshTimerId, automaticLogoutTimerId })
     },
-    destroySessionTimers ({ getters }) {
+    destroySessionTimers({ getters }) {
       clearTimeout(getters.sessionRefreshTimerId)
       clearTimeout(getters.automaticLogoutTimerId)
     },
-    warnForSessionRefresh ({ commit }, alert) {
+    warnForSessionRefresh({ commit }, alert) {
       commit('updateRefreshWarning', alert)
     },
-    logout ({ dispatch }) {
+    logout({ dispatch }) {
       dispatch('logoutOnServer')
       dispatch('logoutOnBrowser')
     },
-    logoutOnServer ({ getters }) {
+    logoutOnServer({ getters }) {
       axios.delete('/auth/logout', { headers: { 'Authorization': `Bearer ${getters.jwt.access_token}` } })
         .then(response => {
           console.log(response)
@@ -119,7 +119,7 @@ export default new Vuex.Store({
           console.log(error.response)
         })
     },
-    logoutOnBrowser ({ commit, dispatch }) {
+    logoutOnBrowser({ commit, dispatch }) {
       dispatch('destroySessionTimers')
       dispatch('warnForSessionRefresh', false)
       commit('unauthUser')
@@ -128,19 +128,19 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    isAuthenticated (state) {
+    isAuthenticated(state) {
       return state.jwt.access_token !== null
     },
-    jwt (state) {
+    jwt(state) {
       return state.jwt
     },
-    automaticLogoutTimerId (state) {
+    automaticLogoutTimerId(state) {
       return state.automaticLogoutTimerId
     },
-    sessionRefreshTimerId (state) {
+    sessionRefreshTimerId(state) {
       return state.sessionRefreshTimerId
     },
-    isSessionEnding (state) {
+    isSessionEnding(state) {
       return state.sessionRefreshWarning
     }
   }
