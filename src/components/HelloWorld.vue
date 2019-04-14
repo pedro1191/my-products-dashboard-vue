@@ -1,13 +1,9 @@
 <template>
   <div class="hello">
-    <h1>Welcome to the My Products Dashboard</h1>
+    <h1>Welcome to the My Food Dashboard</h1>
     <p>
-      Here you can customize the product information for the
-      <a
-        href="http://192.168.0.128:8088"
-        target="_blank"
-        rel="noopener"
-      >My Products App</a>.
+      Here you can customize some data for the
+      <a :href="myFoodAppUrl" target="_blank" rel="noreferrer noopener">My Food App</a>.
     </p>
     <p v-if="!isAuthenticated">But you must
       <router-link to="/login">log in</router-link> first.
@@ -18,11 +14,21 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  data() {
+    return {
+      myFoodAppUrl: process.env.VUE_APP_DEFAULT_MYFOOD_APP_URL
+    };
+  },
   computed: {
-    isAuthenticated () {
-      return this.$store.getters.isAuthenticated
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
     }
   }
-}
+};
 </script>
+
+<style scoped>
+h1 {
+  margin: 1rem 0;
+}
+</style>

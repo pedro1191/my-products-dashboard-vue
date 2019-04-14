@@ -1,29 +1,17 @@
 <template>
   <div class="home">
-    <gws-logo :customStyle="customLogoStyle"/>
-    <hello-world/>
+    <hello-world />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import Logo from '@/components/Logo.vue'
+import HelloWorld from '../components/HelloWorld.vue';
 
 export default {
-  name: 'home',
-  data () {
-    return {
-      customLogoStyle: {
-        maxHeight: '150px'
-      }
-    }
-  },
   components: {
-    helloWorld: HelloWorld,
-    gwsLogo: Logo
+    helloWorld: HelloWorld
   }
-}
+};
 </script>
 
 <style scoped>
