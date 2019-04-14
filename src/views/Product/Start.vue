@@ -1,20 +1,17 @@
 <template>
   <div class="products">
+
     <div class="row">
       <div class="col-sm-6 mb-2">
-        <router-link tag="button" class="btn btn-primary float-left" :to="{ name: 'productsInsert'}">New Product</router-link>
+        <router-link tag="button" class="btn btn-secondary float-left" :to="{ name: 'productsInsert'}">New Product</router-link>
       </div>
       <div class="col-sm-6">
         <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search..."
-            @input="onSearch"
-            v-model="query">
+          <input type="text" class="form-control search-control" placeholder="Search..." @input="onSearch" v-model="query">
         </div>
       </div>
     </div>
+
     <div class="products-list">
       <ul class="list-unstyled" v-if="products.length > 0">
         <li class="media my-2" v-for="product in products" :key="product.id">
@@ -26,9 +23,9 @@
                 <h5>{{ product.category.data.name }}</h5>
                 {{ product.description }}
               </div>
-              <div class="col-md-4 col-lg-3 my-2 actions">
-                <router-link tag="button" class="btn btn-info mr-2" :to="{ name: 'productsUpdate', params: { id: product.id } }">Update</router-link>
-                <router-link tag="button" class="btn btn-danger"  :to="{ name: 'productsDelete', params: { id: product.id } }">Delete</router-link>
+              <div class="col-md-4 col-lg-3 my-2 my-md-0 actions">
+                <router-link tag="button" class="btn btn-outline-secondary mr-2" :to="{ name: 'productsUpdate', params: { id: product.id } }">Update</router-link>
+                <router-link tag="button" class="btn btn-outline-danger" :to="{ name: 'productsDelete', params: { id: product.id } }">Delete</router-link>
               </div>
             </div>
           </div>
@@ -38,34 +35,33 @@
         <h1>No products found =/</h1>
       </div>
     </div>
-    <gws-pagination
-      v-if="pagination.total_pages > 1"
-      :pagination="pagination"
-      @onLinkClicked="changePage($event)"
-    >
-    </gws-pagination>
+
+    <gws-pagination v-if="pagination.total_pages > 1" :pagination="pagination" @onLinkClicked="changePage($event)"></gws-pagination>
+
     <gws-modal v-if="modal.error">
-      <div slot="header">My Products</div>
+      <div slot="header">My Food</div>
       <div slot="body">{{ modal.message }}</div>
       <button class="btn btn-primary" @click="onModalClose" slot="footer">OK</button>
     </gws-modal>
+
     <gws-modal v-if="modal.loading">
       <gws-spinner slot="body"></gws-spinner>
     </gws-modal>
+
   </div>
 </template>
 
 <script>
-import axios from '@/axios-default'
-import Modal from '@/components/Modal.vue'
-import Spinner from '@/components/Spinner.vue'
-import Pagination from '@/components/Pagination.vue'
+import axios from '@/axios-default';
+import Modal from '@/components/Modal.vue';
+import Spinner from '@/components/Spinner.vue';
+import Pagination from '@/components/Pagination.vue';
 
 export default {
-  created () {
-    this.getProducts()
+  created() {
+    this.getProducts();
   },
-  data () {
+  data() {
     return {
       query: null,
       searchTimeout: null,
@@ -77,64 +73,65 @@ export default {
         error: false,
         message: null
       }
-    }
+    };
   },
   computed: {
-    urlParams () {
+    urlParams() {
       const params = {
         params: {
           include: 'category',
           page: this.current_page
         }
-      }
+      };
 
       if (this.query) {
-        params.params['name'] = this.query
+        params.params['name'] = this.query;
       }
 
-      return params
+      return params;
     }
   },
   methods: {
-    onSearch () {
-      clearTimeout(this.searchTimeout)
+    onSearch() {
+      clearTimeout(this.searchTimeout);
 
       this.searchTimeout = setTimeout(() => {
-        this.current_page = 1
-        this.getProducts()
-      }, 500)
+        this.current_page = 1;
+        this.getProducts();
+      }, 500);
     },
-    getProducts () {
-      this.modal.loading = true
+    getProducts() {
+      this.modal.loading = true;
 
-      axios.get('/products', this.urlParams)
+      axios
+        .get('/products', this.urlParams)
         .then(response => {
-          this.products = response.data.data
-          this.pagination = response.data.meta.pagination
-          this.modal.loading = false
+          this.products = response.data.data;
+          this.pagination = response.data.meta.pagination;
+          this.modal.loading = false;
         })
         .catch(error => {
-          this.onHttpRequestError(error)
-        })
+          this.onHttpRequestError(error);
+        });
     },
-    onHttpRequestError (error) {
-      this.modal.loading = false
-      this.modal.error = true
-      console.log(error.response)
+    onHttpRequestError(error) {
+      this.modal.loading = false;
+      this.modal.error = true;
+      console.log(error.response);
 
       switch (error.response.status) {
         default:
-          this.modal.message = 'Oops! Something went wrong.'
+          this.modal.message = 'Oops! Something went wrong.';
       }
     },
-    onModalClose () {
-      this.modal.loading = false
-      this.modal.error = false
-      this.modal.message = null
+    onModalClose() {
+      this.modal.loading = false;
+      this.modal.error = false;
+      this.modal.message = null;
     },
-    changePage (page) {
-      this.current_page = page
-      this.getProducts()
+    changePage(page) {
+      this.current_page = page;
+      this.getProducts();
     }
   },
   components: {
@@ -142,7 +139,7 @@ export default {
     gwsSpinner: Spinner,
     gwsPagination: Pagination
   }
-}
+};
 </script>
 
 <style scoped>
@@ -157,13 +154,23 @@ export default {
 }
 
 .thumbnail {
-    width: 96px;
+  width: 96px;
 }
 
 .actions {
-    display: flex;
-    justify-content: right;
-    align-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: right;
+  align-content: center;
+  align-items: flex-start;
+}
+
+.search-control {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.search-control:focus {
+  box-shadow: none;
 }
 </style>

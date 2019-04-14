@@ -152,7 +152,7 @@ export default {
   display: flex;
   justify-content: right;
   align-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .search-control {
