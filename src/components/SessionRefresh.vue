@@ -65,6 +65,7 @@ export default {
       this.loading = false;
     },
     onHttpRequestError(error) {
+      console.log(error);
       this.requestResponse = 'Oops! An error occurred...';
       this.requestCompleted = true;
       this.$store.dispatch('warnForSessionRefresh', false);

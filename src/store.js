@@ -70,7 +70,9 @@ export default new Vuex.Store({
         }
         jwt.expires_in = ((expirationDateInMilliseconds - now.getTime()) / 1000)
 
-        axios.get('/auth/me', { headers: { 'Authorization': `Bearer ${jwt.access_token}` } })
+        axios.get('/auth/me', {
+          headers: { 'Authorization': `Bearer ${jwt.access_token}` }
+        })
           .then(response => {
             console.log(response.data)
             return resolve(jwt)
@@ -97,7 +99,10 @@ export default new Vuex.Store({
         dispatch('logout')
       }, expirationTime)
 
-      commit('setSessionTimerIds', { sessionRefreshTimerId, automaticLogoutTimerId })
+      commit('setSessionTimerIds', {
+        sessionRefreshTimerId,
+        automaticLogoutTimerId
+      })
     },
     destroySessionTimers({ getters }) {
       clearTimeout(getters.sessionRefreshTimerId)
@@ -111,7 +116,11 @@ export default new Vuex.Store({
       dispatch('logoutOnBrowser')
     },
     logoutOnServer({ getters }) {
-      axios.delete('/auth/logout', { headers: { 'Authorization': `Bearer ${getters.jwt.access_token}` } })
+      axios.delete('/auth/logout', {
+        headers: {
+          'Authorization': `Bearer ${getters.jwt.access_token}`
+        }
+      })
         .then(response => {
           console.log(response.data)
         })

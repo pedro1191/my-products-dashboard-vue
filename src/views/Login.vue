@@ -121,13 +121,11 @@ export default {
     onHttpRequestError(error) {
       this.modal.loading = false;
       this.modal.error = true;
-      console.log(error.response);
+      const errors = error.response.data.errors;
 
       switch (error.response.status) {
         case 422:
           this.modal.message = error.response.data.message;
-
-          const errors = error.response.data.errors;
 
           for (let key in errors) {
             this.formValidationMessages[key] = errors[key].join(' ');
