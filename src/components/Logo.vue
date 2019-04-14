@@ -1,18 +1,18 @@
 <template>
-  <img alt="My Products logo" :src="gwsLogo" :style="customStyle">
+  <img alt="My Food" :src="gwsLogo" :style="customStyle">
 </template>
 
 <script>
-import gwsLogo from '@/assets/blueLogo.png'
+import gwsLogo from '@/assets/whiteLogo.png';
 
 export default {
-  data () {
+  data() {
     return {
       gwsLogo
-    }
+    };
   },
   props: {
     customStyle: Object
   }
-}
+};
 </script>
