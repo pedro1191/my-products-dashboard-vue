@@ -1,5 +1,5 @@
 <template>
-    <div class="Loader">Loading...</div>
+  <div class="Loader">Loading...</div>
 </template>
 
 <style scoped>
@@ -10,7 +10,7 @@
 }
 
 .Loader {
-  color: #007bff;
+  color: #dc3545;
   font-size: 11px;
   text-indent: -99999em;
   margin: auto;
