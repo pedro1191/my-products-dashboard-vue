@@ -4,7 +4,7 @@
     <p>This app was developed using Vue JS.<p>
         <p>It comunicates with a back end RESTful API developed in PHP using Laravel/Lumen.</p>
         <p>
-          <strong>Version:</strong> 0.1.0
+          <strong>Version:</strong> 1.0.0
         </p>
         <p>
           <a href="https://github.com/pedro1191/my-products-dashboard-vue.git" target="_blank" rel="noreferrer noopener">
