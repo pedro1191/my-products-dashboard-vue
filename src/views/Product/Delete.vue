@@ -125,6 +125,9 @@ export default {
       console.log(error.response);
 
       switch (error.response.status) {
+        case 403:
+          this.modal.message = error.response.data.message;
+          break;
         case 404:
           this.modal.message = 'The product was not found.';
           break;
