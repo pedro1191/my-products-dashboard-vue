@@ -30,10 +30,10 @@ const router = new Router({
         // this route requires unauth, check if logged out
         // if not, redirect to home page.
         store.dispatch('checkTokenValidity')
-          .then(jwt => {
+          .then(() => {
             next({ name: 'home' })
           })
-          .catch(error => {
+          .catch(() => {
             next()
           })
       }
@@ -100,10 +100,10 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     store.dispatch('checkTokenValidity')
-      .then(jwt => {
+      .then(() => {
         next()
       })
-      .catch(error => {
+      .catch(() => {
         next({ name: 'login' })
       })
   } else {

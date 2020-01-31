@@ -65,6 +65,7 @@ export default {
       this.loading = false;
     },
     onHttpRequestError(error) {
+      console.log(error); // eslint-disable-line no-console
       this.requestResponse = 'Oops! An error occurred...';
       this.requestCompleted = true;
       this.$store.dispatch('warnForSessionRefresh', false);

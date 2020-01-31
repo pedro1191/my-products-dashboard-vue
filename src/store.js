@@ -73,8 +73,7 @@ export default new Vuex.Store({
         axios.get('/auth/me', {
           headers: { 'Authorization': `Bearer ${jwt.access_token}` },
         })
-          .then((response) => {
-            console.log(response.data) // eslint-disable-line no-console
+          .then(() => {
             return resolve(jwt)
           })
           .catch((error) => {
