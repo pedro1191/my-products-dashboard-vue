@@ -72,7 +72,6 @@ export default {
     axios
       .get(`/products/${this.$route.params.id}?include=category`)
       .then(response => {
-        console.log(response.data);
         this.modal.loading = false;
         this.form.name = response.data.data.name;
         this.form.description = response.data.data.description;
@@ -110,7 +109,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
           this.modal.loading = false;
           this.modal.success = true;
           this.modal.message = 'Product deleted successfully';
@@ -122,7 +120,6 @@ export default {
     onHttpRequestError(error) {
       this.modal.loading = false;
       this.modal.error = true;
-      console.log(error.response);
 
       switch (error.response.status) {
         case 403:

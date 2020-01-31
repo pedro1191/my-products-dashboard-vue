@@ -51,7 +51,6 @@ export default {
     axios
       .get(`/categories/${this.$route.params.id}`)
       .then(response => {
-        console.log(response.data);
         this.modal.loading = false;
         this.form.name = response.data.data.name;
         this.form.description = response.data.data.description;
@@ -113,7 +112,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data)
           this.modal.loading = false;
           this.modal.success = true;
           this.modal.message = 'Category updated successfully';

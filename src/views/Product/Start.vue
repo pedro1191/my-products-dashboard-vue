@@ -117,7 +117,6 @@ export default {
     onHttpRequestError(error) {
       this.modal.loading = false;
       this.modal.error = true;
-      console.log(error.response);
 
       switch (error.response.status) {
         default:

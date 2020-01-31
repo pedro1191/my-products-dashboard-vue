@@ -31,11 +31,9 @@ const router = new Router({
         // if not, redirect to home page.
         store.dispatch('checkTokenValidity')
           .then(jwt => {
-            console.log(jwt)
             next({ name: 'home' })
           })
           .catch(error => {
-            console.log(error)
             next()
           })
       }
@@ -103,11 +101,9 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to login page.
     store.dispatch('checkTokenValidity')
       .then(jwt => {
-        console.log(jwt)
         next()
       })
       .catch(error => {
-        console.log(error)
         next({ name: 'login' })
       })
   } else {

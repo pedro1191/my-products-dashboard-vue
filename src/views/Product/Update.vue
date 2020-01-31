@@ -89,13 +89,11 @@ export default {
     axios
       .get('/categories')
       .then(response => {
-        console.log(response.data);
         this.categories = response.data.data;
 
         axios
           .get(`/products/${this.$route.params.id}?include=category`)
           .then(response => {
-            console.log(response.data);
             this.modal.loading = false;
             this.form.name = response.data.data.name;
             this.form.description = response.data.data.description;
@@ -208,7 +206,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
           this.modal.loading = false;
           this.modal.success = true;
           this.modal.message = 'Product updated successfully';

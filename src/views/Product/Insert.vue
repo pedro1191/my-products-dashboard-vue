@@ -83,7 +83,6 @@ export default {
     axios
       .get('/categories')
       .then(response => {
-        console.log(response.data);
         this.modal.loading = false;
         this.categories = response.data.data;
       })
@@ -189,7 +188,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
           this.modal.loading = false;
           this.modal.success = true;
           this.modal.message = 'Product inserted successfully';
