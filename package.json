@@ -9,8 +9,14 @@
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
+  },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.6",
     "vue-resource": "^1.5.1",
@@ -19,6 +25,8 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.4",
+    "@commitlint/config-conventional": "^8.3.4",
     "@vue/cli-plugin-babel": "^3.5.0",
     "@vue/cli-plugin-e2e-nightwatch": "^3.5.0",
     "@vue/cli-plugin-eslint": "^3.5.0",
@@ -30,9 +38,17 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "eslint": "^5.16.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "eslint": "^6.8.0",
     "eslint-plugin-es-beautifier": "^1.0.1",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint-plugin-vue": "^6.1.2",
+    "husky": "^3.1.0",
     "vue-template-compiler": "^2.5.21"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
