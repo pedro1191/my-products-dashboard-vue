@@ -205,7 +205,7 @@ export default {
             Authorization: `Bearer ${this.$store.getters.jwt.access_token}`
           }
         })
-        .then(response => {
+        .then(() => {
           this.modal.loading = false;
           this.modal.success = true;
           this.modal.message = 'Product updated successfully';

@@ -10,11 +10,11 @@ export default new Vuex.Store({
     jwt: {
       access_token: null,
       token_type: null,
-      expires_in: null
+      expires_in: null,
     },
     sessionRefreshTimerId: null,
     automaticLogoutTimerId: null,
-    sessionRefreshWarning: false
+    sessionRefreshWarning: false,
   },
   mutations: {
     authUser(state, jwt) {
@@ -24,7 +24,7 @@ export default new Vuex.Store({
       state.jwt = {
         access_token: null,
         token_type: null,
-        expires_in: null
+        expires_in: null,
       }
     },
     setSessionTimerIds(state, timerIds) {
@@ -33,7 +33,7 @@ export default new Vuex.Store({
     },
     updateRefreshWarning(state, alert) {
       state.sessionRefreshWarning = alert
-    }
+    },
   },
   actions: {
     login({ commit, dispatch }, jwt) {
@@ -48,11 +48,11 @@ export default new Vuex.Store({
     },
     tryAutoLogin({ dispatch }) {
       dispatch('checkTokenValidity')
-        .then(jwt => {
+        .then((jwt) => {
           dispatch('login', jwt)
         })
-        .catch(error => {
-          console.log(error)
+        .catch((error) => {
+          console.log(error) // eslint-disable-line no-console
         })
     },
     checkTokenValidity() {
@@ -71,14 +71,14 @@ export default new Vuex.Store({
         jwt.expires_in = ((expirationDateInMilliseconds - now.getTime()) / 1000)
 
         axios.get('/auth/me', {
-          headers: { 'Authorization': `Bearer ${jwt.access_token}` }
+          headers: { 'Authorization': `Bearer ${jwt.access_token}` },
         })
-          .then(response => {
-            console.log(response.data)
+          .then((response) => {
+            console.log(response.data) // eslint-disable-line no-console
             return resolve(jwt)
           })
-          .catch(error => {
-            console.log(error.response)
+          .catch((error) => {
+            console.log(error.response) // eslint-disable-line no-console
             return reject(new Error('The token was invalid or expired.'))
           })
       })
@@ -101,7 +101,7 @@ export default new Vuex.Store({
 
       commit('setSessionTimerIds', {
         sessionRefreshTimerId,
-        automaticLogoutTimerId
+        automaticLogoutTimerId,
       })
     },
     destroySessionTimers({ getters }) {
@@ -118,14 +118,14 @@ export default new Vuex.Store({
     logoutOnServer({ getters }) {
       axios.delete('/auth/logout', {
         headers: {
-          'Authorization': `Bearer ${getters.jwt.access_token}`
-        }
+          'Authorization': `Bearer ${getters.jwt.access_token}`,
+        },
       })
-        .then(response => {
-          console.log(response.data)
+        .then((response) => {
+          console.log(response.data) // eslint-disable-line no-console
         })
-        .catch(error => {
-          console.log(error.response)
+        .catch((error) => {
+          console.log(error.response) // eslint-disable-line no-console
         })
     },
     logoutOnBrowser({ commit, dispatch }) {
@@ -134,7 +134,7 @@ export default new Vuex.Store({
       commit('unauthUser')
       localStorage.removeItem('jwt')
       router.replace('/login')
-    }
+    },
   },
   getters: {
     isAuthenticated(state) {
@@ -151,6 +151,6 @@ export default new Vuex.Store({
     },
     isSessionEnding(state) {
       return state.sessionRefreshWarning
-    }
-  }
-})
+    },
+  },
+});
