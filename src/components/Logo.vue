@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import gwsLogo from '@/assets/whiteLogo.png';
+import gwsLogo from '@/assets/logo.png';
 
 export default {
   data() {

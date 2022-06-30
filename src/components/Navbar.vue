@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
     <div class="container">
       <router-link class="navbar-brand" to="/">
-        <gws-logo :customStyle="customLogoStyle" /> My Food
+        <gws-logo :customStyle="customLogoStyle" /> Dashboard
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" :aria-expanded="mobileNavbarOpen" aria-label="Toggle navigation" :class="{collapsed: !mobileNavbarOpen}" @click="onNavbarTogglerClick">
         <span class="navbar-toggler-icon"></span>

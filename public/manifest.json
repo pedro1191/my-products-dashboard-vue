@@ -1,6 +1,6 @@
 {
-  "name": "My Food Dashboard",
-  "short_name": "My Food Dashboard",
+  "name": "FoodClub Dashboard",
+  "short_name": "FoodClub Dashboard",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
