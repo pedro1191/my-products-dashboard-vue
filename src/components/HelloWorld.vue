@@ -1,9 +1,9 @@
 <template>
   <div class="hello">
-    <h1>Welcome to the My Food Dashboard</h1>
+    <h1>Welcome to the FoodClub Dashboard</h1>
     <p>
       Here you can customize some data for the
-      <a :href="myFoodAppUrl" target="_blank" rel="noreferrer noopener">My Food App</a>.
+      <a :href="myFoodAppUrl" target="_blank" rel="noreferrer noopener">FoodClub</a> app.
     </p>
     <p v-if="!isAuthenticated">But you must
       <router-link to="/login">log in</router-link> first.

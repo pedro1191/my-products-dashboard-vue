@@ -1,5 +1,5 @@
 <template>
-  <img alt="My Food" :src="gwsLogo" :style="customStyle">
+  <img alt="FoodClub" :src="gwsLogo" :style="customStyle">
 </template>
 
 <script>

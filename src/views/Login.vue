@@ -35,7 +35,7 @@
     </div>
 
     <gws-modal v-if="modal.error">
-      <div slot="header">My Food</div>
+      <div slot="header">FoodClub</div>
       <div slot="body">{{ modal.message }}</div>
       <button class="btn btn-secondary" @click="onModalClose" slot="footer">OK</button>
     </gws-modal>
@@ -97,7 +97,7 @@ export default {
     formPassword: function() {
       if (!this.$v.form.password.required) {
         this.formValidationMessages.password =
-          'The passowrd field is required.';
+          'The password field is required.';
       } else {
         this.formValidationMessages.password = null;
       }
