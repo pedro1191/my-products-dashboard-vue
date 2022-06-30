@@ -73,6 +73,14 @@ export default {
 </script>
 
 <style scoped>
+.navbar {
+  font-family: PatrickHand, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--dark);
+  font-size: 1.25rem;
+}
+
 .nav-link-button {
   border: none;
   background-color: transparent;

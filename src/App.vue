@@ -30,14 +30,28 @@ export default {
 </script>
 
 <style>
+:root {
+  --navbar-offset: 76px;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'PatrickHand';
+  src: url('./assets/fonts/PatrickHand-Regular.ttf');
+}
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: var(--dark);
 }
 
 body {
-  padding-top: 76px;
+  padding-top: var(--navbar-offset);
 }
 </style>
