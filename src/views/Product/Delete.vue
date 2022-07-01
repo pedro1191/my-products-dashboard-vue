@@ -7,10 +7,10 @@
 
     <div class="card">
       <div class="card-header">
-        Delete Product
+        Delete Dish
       </div>
       <div class="card-body">
-        <div class="alert alert-danger">Are you sure you want to delete this product?</div>
+        <div class="alert alert-danger">Are you sure you want to delete this dish?</div>
         <div class="card">
           <div class="card-body">
             <div class="form">
@@ -33,7 +33,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="category">Category</label>
+                <label for="category">Chef</label>
                 <div class="text-muted" id="category">
                   {{ form.category_name }}
                 </div>
@@ -48,7 +48,7 @@
     </div>
 
     <gws-modal v-if="modal.success || modal.error">
-      <div slot="header">My Food</div>
+      <div slot="header">FoodClub</div>
       <div slot="body">{{ modal.message }}</div>
       <button class="btn btn-secondary" @click="onModalClose" slot="footer">OK</button>
     </gws-modal>
@@ -111,7 +111,7 @@ export default {
         .then(() => {
           this.modal.loading = false;
           this.modal.success = true;
-          this.modal.message = 'Product deleted successfully';
+          this.modal.message = 'Dish deleted successfully';
         })
         .catch(error => {
           this.onHttpRequestError(error);
@@ -126,7 +126,7 @@ export default {
           this.modal.message = error.response.data.message;
           break;
         case 404:
-          this.modal.message = 'The product was not found.';
+          this.modal.message = 'The dish has not been found.';
           break;
         default:
           this.modal.message = 'Oops! Something went wrong.';

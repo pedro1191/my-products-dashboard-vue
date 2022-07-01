@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
     <div class="container">
       <router-link class="navbar-brand" to="/">
-        <gws-logo :customStyle="customLogoStyle" /> My Food
+        <gws-logo :customStyle="customLogoStyle" /> FoodClub
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" :aria-expanded="mobileNavbarOpen" aria-label="Toggle navigation" :class="{collapsed: !mobileNavbarOpen}" @click="onNavbarTogglerClick">
         <span class="navbar-toggler-icon"></span>
@@ -10,7 +10,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent" :class="{show: mobileNavbarOpen}">
         <ul class="navbar-nav ml-auto">
-          <router-link class="nav-item" to="/" tag="li" active-class="active" exact>
+          <router-link class="nav-item" to="/" tag="li" active-class="active" exact v-if="isAuthenticated">
             <a class="nav-link">Home</a>
           </router-link>
           <router-link class="nav-item" to="/about" tag="li" active-class="active">
@@ -21,8 +21,8 @@
               Manage
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown" :class="{show: dropdownOpen}">
-              <router-link class="dropdown-item" to="/categories" active-class="active">Categories</router-link>
-              <router-link class="dropdown-item" to="/products" active-class="active">Products</router-link>
+              <router-link class="dropdown-item" to="/categories" active-class="active">Chefs</router-link>
+              <router-link class="dropdown-item" to="/products" active-class="active">Dishes</router-link>
             </div>
           </li>
           <router-link class="nav-item" to="/login" tag="li" active-class="active" v-if="!isAuthenticated">
@@ -73,6 +73,14 @@ export default {
 </script>
 
 <style scoped>
+.navbar {
+  font-family: PatrickHand, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--dark);
+  font-size: 1.25rem;
+}
+
 .nav-link-button {
   border: none;
   background-color: transparent;

@@ -1,4 +1,4 @@
-# FoodClub's Dashboard
+# FoodClub Dashboard
 
 Hello and welcome!
 
