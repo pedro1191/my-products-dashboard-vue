@@ -26,7 +26,7 @@
       >
         source code
       </a>
-      for documentation and technical details
+      for documentation and technical details.
     </p>
   </div>
 </template>
