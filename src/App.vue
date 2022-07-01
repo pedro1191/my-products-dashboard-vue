@@ -51,6 +51,13 @@ export default {
   color: var(--dark);
 }
 
+h1 {
+  font-family: PatrickHand, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--dark);
+}
+
 body {
   padding-top: var(--navbar-offset);
 }
