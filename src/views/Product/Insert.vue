@@ -7,7 +7,7 @@
 
     <div class="card">
       <div class="card-header">
-        New Product
+        New Dish
       </div>
       <div class="card-body">
         <form>
@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="category">Category*</label>
+            <label for="category">Chef*</label>
             <select class="form-control" id="category" v-model="form.category_id" :class="{ 'is-invalid': ($v.form.category_id.$error || formValidationMessages.category_id) }">
               <option v-for="category in categories" :key="category.id" :value="category.id">
                 {{ category.name }}
@@ -164,7 +164,7 @@ export default {
     formCategory: function() {
       if (!this.$v.form.category_id.required) {
         this.formValidationMessages.category_id =
-          'The category field is required.';
+          'The Chef field is required.';
       } else {
         this.formValidationMessages.category_id = null;
       }
@@ -190,7 +190,7 @@ export default {
         .then(() => {
           this.modal.loading = false;
           this.modal.success = true;
-          this.modal.message = 'Product inserted successfully';
+          this.modal.message = 'Dish inserted successfully';
         })
         .catch(error => {
           this.onHttpRequestError(error);

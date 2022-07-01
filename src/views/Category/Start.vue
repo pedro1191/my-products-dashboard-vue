@@ -3,7 +3,7 @@
 
     <div class="row">
       <div class="col-sm-6 mb-2">
-        <router-link tag="button" class="btn btn-secondary float-left" :to="{ name: 'categoriesInsert'}">New Category</router-link>
+        <router-link tag="button" class="btn btn-secondary float-left" :to="{ name: 'categoriesInsert'}">New Chef</router-link>
       </div>
       <div class="col-sm-6">
         <div class="input-group">
@@ -29,7 +29,7 @@
         </li>
       </ul>
       <div class="text-center text-muted" v-else>
-        <h1>No categories found =/</h1>
+        <h1>No results found =/</h1>
       </div>
     </div>
 

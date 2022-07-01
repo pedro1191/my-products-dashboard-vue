@@ -7,7 +7,7 @@
 
     <div class="card">
       <div class="card-header">
-        Update Category
+        Update Chef
       </div>
       <div class="card-body">
         <form>
@@ -114,7 +114,7 @@ export default {
         .then(() => {
           this.modal.loading = false;
           this.modal.success = true;
-          this.modal.message = 'Category updated successfully';
+          this.modal.message = 'Chef updated successfully';
         })
         .catch(error => {
           this.onHttpRequestError(error);
@@ -127,7 +127,7 @@ export default {
 
       switch (error.response.status) {
         case 404:
-          this.modal.message = 'The category was not found.';
+          this.modal.message = 'The Chef has not been found.';
           break;
         case 422:
           this.modal.message = error.response.data.message;

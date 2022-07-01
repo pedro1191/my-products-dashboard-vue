@@ -7,7 +7,7 @@
 
     <div class="card">
       <div class="card-header">
-        New Category
+        New Chef
       </div>
       <div class="card-body">
         <form>
@@ -99,7 +99,7 @@ export default {
         .then(() => {
           this.modal.loading = false;
           this.modal.success = true;
-          this.modal.message = 'Category inserted successfully';
+          this.modal.message = 'Chef inserted successfully';
         })
         .catch(error => {
           this.onHttpRequestError(error);

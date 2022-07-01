@@ -7,10 +7,10 @@
 
     <div class="card">
       <div class="card-header">
-        Delete Category
+        Delete Chef
       </div>
       <div class="card-body">
-        <div class="alert alert-danger">Are you sure you want to delete this category and all its products?</div>
+        <div class="alert alert-danger">Are you sure you want to delete this Chef and all their dishes?</div>
         <div class="card">
           <div class="card-body">
             <div class="form">
@@ -86,7 +86,7 @@ export default {
         .then(() => {
           this.modal.loading = false;
           this.modal.success = true;
-          this.modal.message = 'Category deleted successfully';
+          this.modal.message = 'Chef deleted successfully';
         })
         .catch(error => {
           this.onHttpRequestError(error);
@@ -101,7 +101,7 @@ export default {
           this.modal.message = error.response.data.message;
           break;
         case 404:
-          this.modal.message = 'The category was not found.';
+          this.modal.message = 'The Chef has not been found.';
           break;
         default:
           this.modal.message = 'Oops! Something went wrong.';

@@ -21,8 +21,8 @@
               Manage
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown" :class="{show: dropdownOpen}">
-              <router-link class="dropdown-item" to="/categories" active-class="active">Categories</router-link>
-              <router-link class="dropdown-item" to="/products" active-class="active">Products</router-link>
+              <router-link class="dropdown-item" to="/categories" active-class="active">Chefs</router-link>
+              <router-link class="dropdown-item" to="/products" active-class="active">Dishes</router-link>
             </div>
           </li>
           <router-link class="nav-item" to="/login" tag="li" active-class="active" v-if="!isAuthenticated">
