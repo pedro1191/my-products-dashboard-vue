@@ -10,7 +10,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent" :class="{show: mobileNavbarOpen}">
         <ul class="navbar-nav ml-auto">
-          <router-link class="nav-item" to="/" tag="li" active-class="active" exact>
+          <router-link class="nav-item" to="/" tag="li" active-class="active" exact v-if="isAuthenticated">
             <a class="nav-link">Home</a>
           </router-link>
           <router-link class="nav-item" to="/about" tag="li" active-class="active">
