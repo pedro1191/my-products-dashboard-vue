@@ -68,9 +68,7 @@ export default createStore({
         .then((jwt) => {
           dispatch('login', jwt);
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     checkTokenValidity() {
       return new Promise((resolve, reject) => {
@@ -94,8 +92,7 @@ export default createStore({
           .then(() => {
             return resolve(jwt);
           })
-          .catch((error) => {
-            console.log(error.response);
+          .catch(() => {
             return reject(new Error('The token was invalid or expired.'));
           });
       });
@@ -140,12 +137,7 @@ export default createStore({
         .delete('/auth/logout', {
           headers: { Authorization: `Bearer ${getters.jwt.access_token}` },
         })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error.response);
-        });
+        .catch(() => {});
     },
     logoutOnBrowser({ commit, dispatch }) {
       dispatch('destroySessionTimers');

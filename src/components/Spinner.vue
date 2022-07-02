@@ -2,6 +2,12 @@
   <div class="Loader">Loading...</div>
 </template>
 
+<script>
+export default {
+  name: 'AppSpinner',
+};
+</script>
+
 <style scoped>
 .Loader,
 .Loader:before,
@@ -60,16 +66,19 @@
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 @keyframes load2 {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);

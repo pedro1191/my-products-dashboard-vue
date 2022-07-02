@@ -1,17 +1,29 @@
 <template>
   <transition name="fade">
-    <div class="session-refresh" v-if="sessionRefresh || waitingUserConfirmation">
+    <div
+      class="session-refresh"
+      v-if="sessionRefresh || waitingUserConfirmation"
+    >
       <div class="card">
         <div class="card-body" v-if="loading">
           <p class="card-text">Refreshing...</p>
         </div>
         <div class="card-body" v-else-if="requestCompleted">
           <p class="card-text">{{ requestResponse }}</p>
-          <button class="card-link card-link-button" @click="onUserConfirmation">Ok</button>
+          <button
+            class="card-link card-link-button"
+            @click="onUserConfirmation"
+          >
+            Ok
+          </button>
         </div>
         <div class="card-body" v-else>
-          <p class="card-text">Are you still there? Your session will expire soon...</p>
-          <button class="card-link card-link-button" @click="onRefreshSession">Refresh</button>
+          <p class="card-text">
+            Are you still there? Your session will expire soon...
+          </p>
+          <button class="card-link card-link-button" @click="onRefreshSession">
+            Refresh
+          </button>
         </div>
       </div>
     </div>
@@ -22,11 +34,12 @@
 import axios from '@/axios-default';
 
 export default {
+  name: 'AppSessionRefresh',
   data() {
     return {
       loading: false,
       requestCompleted: false,
-      requestResponse: null
+      requestResponse: null,
     };
   },
   computed: {
@@ -35,7 +48,7 @@ export default {
     },
     waitingUserConfirmation() {
       return this.requestCompleted;
-    }
+    },
   },
   methods: {
     onRefreshSession() {
@@ -47,14 +60,14 @@ export default {
           {},
           {
             headers: {
-              Authorization: `Bearer ${this.$store.getters.jwt.access_token}`
-            }
+              Authorization: `Bearer ${this.$store.getters.jwt.access_token}`,
+            },
           }
         )
-        .then(response => {
+        .then((response) => {
           this.onHttpRequestSuccess(response);
         })
-        .catch(error => {
+        .catch((error) => {
           this.onHttpRequestError(error);
         });
     },
@@ -64,8 +77,7 @@ export default {
       this.$store.dispatch('refreshSession', response.data);
       this.loading = false;
     },
-    onHttpRequestError(error) {
-      console.log(error); // eslint-disable-line no-console
+    onHttpRequestError() {
       this.requestResponse = 'Oops! An error occurred...';
       this.requestCompleted = true;
       this.$store.dispatch('warnForSessionRefresh', false);
@@ -74,8 +86,8 @@ export default {
     onUserConfirmation() {
       this.requestCompleted = false;
       this.requestResponse = null;
-    }
-  }
+    },
+  },
 };
 </script>
 

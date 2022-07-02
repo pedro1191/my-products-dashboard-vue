@@ -1,26 +1,43 @@
 <template>
   <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
-      <li class="page-item" :class="{disabled: isFirstPage }">
+      <li class="page-item" :class="{ disabled: isFirstPage }">
         <button class="page-link" @click="onLinkClicked(1)" aria-label="First">
           <span aria-hidden="true">First</span>
         </button>
       </li>
-      <li class="page-item" :class="{disabled: isFirstPage }">
-        <button class="page-link" @click="onLinkClicked(previousPage)" aria-label="Previous">
+      <li class="page-item" :class="{ disabled: isFirstPage }">
+        <button
+          class="page-link"
+          @click="onLinkClicked(previousPage)"
+          aria-label="Previous"
+        >
           <span aria-hidden="true">&laquo;</span>
         </button>
       </li>
-      <li class="page-item" v-for="i in pagesToBeShown" :key="i" :class="{active: i === pagination.current_page}">
+      <li
+        class="page-item"
+        v-for="i in pagesToBeShown"
+        :key="i"
+        :class="{ active: i === pagination.current_page }"
+      >
         <button class="page-link" @click="onLinkClicked(i)">{{ i }}</button>
       </li>
-      <li class="page-item" :class="{disabled: isLastPage }">
-        <button class="page-link" @click="onLinkClicked(nextPage)" aria-label="Next">
+      <li class="page-item" :class="{ disabled: isLastPage }">
+        <button
+          class="page-link"
+          @click="onLinkClicked(nextPage)"
+          aria-label="Next"
+        >
           <span aria-hidden="true">&raquo;</span>
         </button>
       </li>
-      <li class="page-item" :class="{disabled: isLastPage }">
-        <button class="page-link" @click="onLinkClicked(pagination.total_pages)" aria-label="Last">
+      <li class="page-item" :class="{ disabled: isLastPage }">
+        <button
+          class="page-link"
+          @click="onLinkClicked(pagination.total_pages)"
+          aria-label="Last"
+        >
           <span aria-hidden="true">Last</span>
         </button>
       </li>
@@ -30,15 +47,16 @@
 
 <script>
 export default {
+  name: 'AppPagination',
   props: {
     pagination: {
       type: Object,
-      required: true
+      required: true,
     },
     maxNumberOfLinksBeforeCurrentPage: {
       type: Number,
-      default: 1
-    }
+      default: 1,
+    },
   },
   computed: {
     maxNumberOfLinksToBeShown() {
@@ -74,7 +92,7 @@ export default {
       }
 
       return this.pagination.current_page + 1;
-    }
+    },
   },
   methods: {
     getPages(start, end) {
@@ -108,7 +126,7 @@ export default {
     },
     onLinkClicked(page) {
       this.$emit('onLinkClicked', page);
-    }
-  }
+    },
+  },
 };
 </script>
