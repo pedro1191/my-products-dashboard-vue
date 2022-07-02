@@ -21,11 +21,11 @@ import SessionRefresh from './components/SessionRefresh.vue';
 export default {
   components: {
     gwsNavbar: Navbar,
-    gwsSessionRefresh: SessionRefresh
+    gwsSessionRefresh: SessionRefresh,
   },
   created() {
     this.$store.dispatch('tryAutoLogin');
-  }
+  },
 };
 </script>
 

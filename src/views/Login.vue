@@ -1,6 +1,5 @@
 <template>
   <div class="login">
-
     <div class="card">
       <div class="card-header">
         <gws-logo :customStyle="customLogoStyle"></gws-logo>
@@ -9,7 +8,17 @@
         <form>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" v-model.trim="$v.form.email.$model" :class="{ 'is-invalid': ($v.form.email.$error || formValidationMessages.email) }">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              aria-describedby="emailHelp"
+              v-model.trim="v$.form.email.$model"
+              :class="{
+                'is-invalid':
+                  v$.form.email.$error || formValidationMessages.email,
+              }"
+            />
             <div class="invalid-feedback" v-if="formValidationMessages.email">
               {{ formValidationMessages.email }}
             </div>
@@ -19,15 +28,33 @@
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" v-model.trim="$v.form.password.$model" :class="{ 'is-invalid': ($v.form.password.$error || formValidationMessages.password) }">
-            <div class="invalid-feedback" v-if="formValidationMessages.password">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              aria-describedby="passwordHelp"
+              v-model.trim="v$.form.password.$model"
+              :class="{
+                'is-invalid':
+                  v$.form.password.$error || formValidationMessages.password,
+              }"
+            />
+            <div
+              class="invalid-feedback"
+              v-if="formValidationMessages.password"
+            >
               {{ formValidationMessages.password }}
             </div>
             <small id="passwordHelp" class="text-muted">
               The default password is <strong>admin123</strong>.
             </small>
           </div>
-          <button type="submit" class="btn btn-outline-secondary" :disabled="$v.$invalid" @click.prevent="onSubmit">
+          <button
+            type="submit"
+            class="btn btn-outline-secondary"
+            :disabled="v$.$invalid"
+            @click.prevent="onSubmit"
+          >
             Log in
           </button>
         </form>
@@ -35,44 +62,61 @@
     </div>
 
     <gws-modal v-if="modal.error">
-      <div slot="header">FoodClub</div>
-      <div slot="body">{{ modal.message }}</div>
-      <button class="btn btn-secondary" @click="onModalClose" slot="footer">OK</button>
+      <template v-slot:header>
+        <div>FoodClub</div>
+      </template>
+      <template v-slot:body>
+        <div>{{ modal.message }}</div>
+      </template>
+      <template v-slot:footer>
+        <button class="btn btn-secondary" @click="onModalClose">OK</button>
+      </template>
     </gws-modal>
 
     <gws-modal v-if="modal.loading">
-      <gws-spinner slot="body"></gws-spinner>
+      <template v-slot:body>
+        <gws-spinner></gws-spinner>
+      </template>
     </gws-modal>
-
   </div>
 </template>
 
 <script>
 import axios from '@/axios-default';
-import { required, email } from 'vuelidate/lib/validators';
+import useVuelidate from '@vuelidate/core';
+import { helpers, required, email } from '@vuelidate/validators';
 import Logo from '../components/Logo.vue';
 import Modal from '../components/Modal.vue';
 import Spinner from '../components/Spinner.vue';
 
 export default {
+  name: 'AppLogin',
+  components: {
+    gwsLogo: Logo,
+    gwsModal: Modal,
+    gwsSpinner: Spinner,
+  },
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
       form: {
         email: 'admin@myproducts.com',
-        password: 'admin123'
+        password: 'admin123',
       },
       formValidationMessages: {
         email: null,
-        password: null
+        password: null,
       },
       customLogoStyle: {
-        height: '50px'
+        height: '50px',
       },
       modal: {
         loading: false,
         error: false,
-        message: null
-      }
+        message: null,
+      },
     };
   },
   computed: {
@@ -81,27 +125,15 @@ export default {
     },
     formPassword() {
       return this.form.password;
-    }
+    },
   },
   watch: {
-    formEmail: function() {
-      if (!this.$v.form.email.email) {
-        this.formValidationMessages.email =
-          'The email must be a valid email address.';
-      } else if (!this.$v.form.email.required) {
-        this.formValidationMessages.email = 'The email field is required.';
-      } else {
-        this.formValidationMessages.email = null;
-      }
+    formEmail: function () {
+      this.setValidationMessage('email');
     },
-    formPassword: function() {
-      if (!this.$v.form.password.required) {
-        this.formValidationMessages.password =
-          'The password field is required.';
-      } else {
-        this.formValidationMessages.password = null;
-      }
-    }
+    formPassword: function () {
+      this.setValidationMessage('password');
+    },
   },
   methods: {
     onSubmit() {
@@ -109,12 +141,12 @@ export default {
 
       axios
         .post('/auth/login', this.form)
-        .then(response => {
+        .then((response) => {
           this.$store.dispatch('login', response.data);
           this.modal.loading = false;
           this.$router.push({ name: 'home' });
         })
-        .catch(error => {
+        .catch((error) => {
           this.onHttpRequestError(error);
         });
     },
@@ -140,24 +172,39 @@ export default {
       this.modal.loading = false;
       this.modal.error = false;
       this.modal.message = null;
-    }
-  },
-  validations: {
-    form: {
-      email: {
-        required,
-        email
-      },
-      password: {
-        required
+    },
+    setValidationMessage(key) {
+      if (!this.v$.form[key].$dirty) {
+        return;
       }
-    }
+      if (this.v$.form[key].$invalid) {
+        this.formValidationMessages[key] = this.v$.form[key].$errors
+          .map((error) => error.$message)
+          .join('. ');
+      } else {
+        this.formValidationMessages[key] = null;
+      }
+    },
   },
-  components: {
-    gwsLogo: Logo,
-    gwsModal: Modal,
-    gwsSpinner: Spinner
-  }
+  validations() {
+    return {
+      form: {
+        email: {
+          required: helpers.withMessage(
+            'The email field is required.',
+            required
+          ),
+          email,
+        },
+        password: {
+          required: helpers.withMessage(
+            'The password field is required.',
+            required
+          ),
+        },
+      },
+    };
+  },
 };
 </script>
 

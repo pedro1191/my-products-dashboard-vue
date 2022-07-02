@@ -1,28 +1,60 @@
 <template>
   <div class="categories">
-
     <div class="row">
       <div class="col-sm-6 mb-2">
-        <router-link tag="button" class="btn btn-secondary float-left" :to="{ name: 'categoriesInsert'}">New Chef</router-link>
+        <router-link
+          class="btn btn-secondary float-left"
+          :to="{ name: 'categoriesInsert' }"
+        >
+          New Chef
+        </router-link>
       </div>
       <div class="col-sm-6">
         <div class="input-group">
-          <input type="text" class="form-control search-control" placeholder="Search..." @input="onSearch" v-model="query">
+          <input
+            type="text"
+            class="form-control search-control"
+            placeholder="Search..."
+            @input="onSearch"
+            v-model="query"
+          />
         </div>
       </div>
     </div>
 
     <div class="categories-list">
       <ul class="list-unstyled" v-if="categories.length > 0">
-        <li class="media my-2" v-for="category in categories" :key="category.id">
+        <li
+          class="media my-2"
+          v-for="category in categories"
+          :key="category.id"
+        >
           <div class="media-body">
             <div class="row">
               <div class="col-md-8 col-lg-9">
-                <h5 class="mt-0 mb-1"><strong>{{ category.name }}</strong></h5>
+                <h5 class="mt-0 mb-1">
+                  <strong>{{ category.name }}</strong>
+                </h5>
               </div>
               <div class="col-md-4 col-lg-3 my-2 my-md-0 actions">
-                <router-link tag="button" class="btn btn-outline-secondary mr-2" :to="{ name: 'categoriesUpdate', params: { id: category.id } }">Update</router-link>
-                <router-link tag="button" class="btn btn-outline-danger" :to="{ name: 'categoriesDelete', params: { id: category.id } }">Delete</router-link>
+                <router-link
+                  class="btn btn-outline-secondary mr-2"
+                  :to="{
+                    name: 'categoriesUpdate',
+                    params: { id: category.id },
+                  }"
+                >
+                  Update
+                </router-link>
+                <router-link
+                  class="btn btn-outline-danger"
+                  :to="{
+                    name: 'categoriesDelete',
+                    params: { id: category.id },
+                  }"
+                >
+                  Delete
+                </router-link>
               </div>
             </div>
           </div>
@@ -33,18 +65,30 @@
       </div>
     </div>
 
-    <gws-pagination v-if="pagination.total_pages > 1" :pagination="pagination" @onLinkClicked="changePage($event)"></gws-pagination>
+    <gws-pagination
+      v-if="pagination.total_pages > 1"
+      :pagination="pagination"
+      @onLinkClicked="changePage($event)"
+    >
+    </gws-pagination>
 
     <gws-modal v-if="modal.error">
-      <div slot="header">FoodClub</div>
-      <div slot="body">{{ modal.message }}</div>
-      <button class="btn btn-secondary" @click="onModalClose" slot="footer">OK</button>
+      <template v-slot:header>
+        <div>FoodClub</div>
+      </template>
+      <template v-slot:body>
+        <div>{{ modal.message }}</div>
+      </template>
+      <template v-slot:footer>
+        <button class="btn btn-secondary" @click="onModalClose">OK</button>
+      </template>
     </gws-modal>
 
     <gws-modal v-if="modal.loading">
-      <gws-spinner slot="body"></gws-spinner>
+      <template v-slot:body>
+        <gws-spinner></gws-spinner>
+      </template>
     </gws-modal>
-
   </div>
 </template>
 
@@ -55,8 +99,11 @@ import Spinner from '@/components/Spinner.vue';
 import Pagination from '@/components/Pagination.vue';
 
 export default {
-  created() {
-    this.getCategories();
+  name: 'AppStart',
+  components: {
+    gwsModal: Modal,
+    gwsSpinner: Spinner,
+    gwsPagination: Pagination,
   },
   data() {
     return {
@@ -68,16 +115,16 @@ export default {
       modal: {
         loading: false,
         error: false,
-        message: null
-      }
+        message: null,
+      },
     };
   },
   computed: {
     urlParams() {
       const params = {
         params: {
-          page: this.current_page
-        }
+          page: this.current_page,
+        },
       };
 
       if (this.query) {
@@ -85,7 +132,10 @@ export default {
       }
 
       return params;
-    }
+    },
+  },
+  created() {
+    this.getCategories();
   },
   methods: {
     onSearch() {
@@ -101,12 +151,12 @@ export default {
 
       axios
         .get('/categories', this.urlParams)
-        .then(response => {
+        .then((response) => {
           this.categories = response.data.data;
           this.pagination = response.data.meta.pagination;
           this.modal.loading = false;
         })
-        .catch(error => {
+        .catch((error) => {
           this.onHttpRequestError(error);
         });
     },
@@ -127,13 +177,8 @@ export default {
     changePage(page) {
       this.current_page = page;
       this.getCategories();
-    }
+    },
   },
-  components: {
-    gwsModal: Modal,
-    gwsSpinner: Spinner,
-    gwsPagination: Pagination
-  }
 };
 </script>
 

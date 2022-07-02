@@ -1,16 +1,15 @@
 <template>
   <div class="delete">
-
     <div class="back-button">
       <button class="btn btn-light" @click="goBack">&laquo; Go Back</button>
     </div>
 
     <div class="card">
-      <div class="card-header">
-        Delete Chef
-      </div>
+      <div class="card-header">Delete Chef</div>
       <div class="card-body">
-        <div class="alert alert-danger">Are you sure you want to delete this Chef and all their dishes?</div>
+        <div class="alert alert-danger">
+          Are you sure you want to delete this Chef and all their dishes?
+        </div>
         <div class="card">
           <div class="card-body">
             <div class="form">
@@ -23,20 +22,32 @@
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-outline-danger" @click.prevent="onSubmit">
+        <button
+          type="submit"
+          class="btn btn-outline-danger"
+          @click.prevent="onSubmit"
+        >
           Delete
         </button>
       </div>
     </div>
 
     <gws-modal v-if="modal.success || modal.error">
-      <div slot="header">FoodClub</div>
-      <div slot="body">{{ modal.message }}</div>
-      <button class="btn btn-secondary" @click="onModalClose" slot="footer">OK</button>
+      <template v-slot:header>
+        <div>FoodClub</div>
+      </template>
+      <template v-slot:body>
+        <div>{{ modal.message }}</div>
+      </template>
+      <template v-slot:footer>
+        <button class="btn btn-secondary" @click="onModalClose">OK</button>
+      </template>
     </gws-modal>
 
     <gws-modal v-if="modal.loading">
-      <gws-spinner slot="body"></gws-spinner>
+      <template v-slot:body>
+        <gws-spinner></gws-spinner>
+      </template>
     </gws-modal>
   </div>
 </template>
@@ -47,31 +58,36 @@ import Modal from '../../components/Modal.vue';
 import Spinner from '../../components/Spinner.vue';
 
 export default {
-  created() {
-    this.modal.loading = true;
-
-    axios
-      .get(`/categories/${this.$route.params.id}`)
-      .then(response => {
-        this.modal.loading = false;
-        this.form.name = response.data.data.name;
-      })
-      .catch(error => {
-        this.onHttpRequestError(error);
-      });
+  name: 'AppDelete',
+  components: {
+    gwsModal: Modal,
+    gwsSpinner: Spinner,
   },
   data() {
     return {
       form: {
-        name: null
+        name: null,
       },
       modal: {
         loading: false,
         success: false,
         error: false,
-        message: null
-      }
+        message: null,
+      },
     };
+  },
+  created() {
+    this.modal.loading = true;
+
+    axios
+      .get(`/categories/${this.$route.params.id}`)
+      .then((response) => {
+        this.modal.loading = false;
+        this.form.name = response.data.data.name;
+      })
+      .catch((error) => {
+        this.onHttpRequestError(error);
+      });
   },
   methods: {
     onSubmit() {
@@ -80,15 +96,15 @@ export default {
       axios
         .delete(`/categories/${this.$route.params.id}`, {
           headers: {
-            Authorization: `Bearer ${this.$store.getters.jwt.access_token}`
-          }
+            Authorization: `Bearer ${this.$store.getters.jwt.access_token}`,
+          },
         })
         .then(() => {
           this.modal.loading = false;
           this.modal.success = true;
           this.modal.message = 'Chef deleted successfully';
         })
-        .catch(error => {
+        .catch((error) => {
           this.onHttpRequestError(error);
         });
     },
@@ -119,12 +135,8 @@ export default {
     },
     goBack() {
       this.$router.push({ name: 'categories' });
-    }
+    },
   },
-  components: {
-    gwsModal: Modal,
-    gwsSpinner: Spinner
-  }
 };
 </script>
 

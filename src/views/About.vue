@@ -3,8 +3,11 @@
     <h1>FoodClub Dashboard</h1>
     <p><strong>Version:</strong> 1.0.0</p>
     <p>
-      This is a Progressive Web Application built using Vue.js that works as a dashboard for the
-      <a :href="myFoodAppUrl" target="_blank" rel="noreferrer noopener">FoodClub</a>
+      This is a Progressive Web Application built using Vue.js that works as a
+      dashboard for the
+      <a :href="myFoodAppUrl" target="_blank" rel="noreferrer noopener">
+        FoodClub
+      </a>
       application. It consumes a
       <a
         class="text-danger"
@@ -15,7 +18,8 @@
         REST API
       </a>
       where the administrator can log in and manage the categories and things.
-      The "theme" chosen here relates to culinary, but it could have been anything else.
+      The "theme" chosen here relates to culinary, but it could have been
+      anything else.
     </p>
     <p>
       Please refer to the
@@ -33,10 +37,10 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'AppAbout',
   data() {
     return {
-      myFoodAppUrl: process.env.VUE_APP_DEFAULT_MYFOOD_APP_URL
+      myFoodAppUrl: process.env.VUE_APP_DEFAULT_MYFOOD_APP_URL,
     };
   },
 };

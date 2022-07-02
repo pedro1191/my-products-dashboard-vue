@@ -3,7 +3,9 @@
     <h1>Welcome to the FoodClub Dashboard</h1>
     <p>
       Here you can manage the data for the
-      <a :href="myFoodAppUrl" target="_blank" rel="noreferrer noopener">FoodClub</a>
+      <a :href="myFoodAppUrl" target="_blank" rel="noreferrer noopener">
+        FoodClub
+      </a>
       app.
     </p>
     <p>You can start by opening the <strong>Manage</strong> menu.</p>
@@ -12,10 +14,10 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'AppHome',
   data() {
     return {
-      myFoodAppUrl: process.env.VUE_APP_DEFAULT_MYFOOD_APP_URL
+      myFoodAppUrl: process.env.VUE_APP_DEFAULT_MYFOOD_APP_URL,
     };
   },
 };

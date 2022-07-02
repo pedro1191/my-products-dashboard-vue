@@ -3,7 +3,6 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="modal-header">
             <slot name="header"></slot>
           </div>
@@ -15,12 +14,17 @@
           <div class="modal-footer">
             <slot name="footer"></slot>
           </div>
-
         </div>
       </div>
     </div>
   </transition>
 </template>
+
+<script>
+export default {
+  name: 'AppModal',
+};
+</script>
 
 <style scoped>
 .modal-mask {
