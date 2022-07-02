@@ -15,7 +15,7 @@
         :class="{ collapsed: !mobileNavbarOpen }"
         @click="onNavbarTogglerClick"
       >
-        <span class="navbar-toggler-icon"></span>
+        Menu <font-awesome-icon class="ml-2" icon="fa-bars" />
       </button>
 
       <div
