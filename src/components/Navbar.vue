@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
     <div class="container">
-      <router-link class="navbar-brand" to="/">
+      <router-link class="navbar-brand" title="FoodClub" :to="{ name: 'home' }">
         <gws-logo :customStyle="customLogoStyle" /> FoodClub
       </router-link>
       <button
