@@ -7,8 +7,8 @@ This is a Progressive Web Application built using [Vue.js](https://vuejs.org/) t
 The following technologies are being used:
 - [axios](https://github.com/axios/axios): to consume the [REST API](https://github.com/pedro1191/my-products-dashboard-rest)
 - [bootstrap](https://getbootstrap.com/)
+- [commitlint](https://github.com/conventional-changelog/commitlint) and [husky](https://github.com/typicode/husky): to control commit messages
 - [cypress](https://www.cypress.io/): for end-to-end testing
-- [husky](https://github.com/typicode/husky): to control commit messages
 - [jest](https://jestjs.io/): for unit testing
 - [vue-gtag](https://github.com/MatteoGabriele/vue-gtag): to send event data to Google Analytics
 - [vuelidate](https://github.com/vuelidate/vuelidate): to validate the insert and update forms
