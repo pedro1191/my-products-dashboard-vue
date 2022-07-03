@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
     <div class="container">
-      <router-link class="navbar-brand" to="/">
+      <router-link class="navbar-brand" title="FoodClub" :to="{ name: 'home' }">
         <gws-logo :customStyle="customLogoStyle" /> FoodClub
       </router-link>
       <button
@@ -15,7 +15,7 @@
         :class="{ collapsed: !mobileNavbarOpen }"
         @click="onNavbarTogglerClick"
       >
-        <span class="navbar-toggler-icon"></span>
+        Menu <font-awesome-icon class="ml-2" icon="fa-bars" />
       </button>
 
       <div

@@ -28,7 +28,7 @@
         target="_blank"
         rel="noreferrer noopener"
       >
-        source code
+        source code <font-awesome-icon icon="fa-code" />
       </a>
       for documentation and technical details.
     </p>

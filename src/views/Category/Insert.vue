@@ -1,7 +1,9 @@
 <template>
   <div class="insert">
     <div class="back-button">
-      <button class="btn btn-light" @click="goBack">&laquo; Go Back</button>
+      <button class="btn btn-light" @click="goBack">
+        <font-awesome-icon icon="fa-backward" /> Go Back
+      </button>
     </div>
 
     <div class="card">
