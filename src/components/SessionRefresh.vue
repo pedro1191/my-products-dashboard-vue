@@ -1,7 +1,7 @@
 <template>
-  <transition name="fade">
+  <transition name="fade-in">
     <div
-      class="session-refresh"
+      class="session-refresh bg-light"
       v-if="sessionRefresh || waitingUserConfirmation"
     >
       <div class="card">
@@ -10,10 +10,7 @@
         </div>
         <div class="card-body" v-else-if="requestCompleted">
           <p class="card-text">{{ requestResponse }}</p>
-          <button
-            class="card-link card-link-button"
-            @click="onUserConfirmation"
-          >
+          <button class="btn btn-secondary" @click="onUserConfirmation">
             Ok
           </button>
         </div>
@@ -21,7 +18,7 @@
           <p class="card-text">
             Are you still there? Your session will expire soon...
           </p>
-          <button class="card-link card-link-button" @click="onRefreshSession">
+          <button class="btn btn-secondary" @click="onRefreshSession">
             Refresh
           </button>
         </div>
@@ -78,7 +75,7 @@ export default {
       this.loading = false;
     },
     onHttpRequestError() {
-      this.requestResponse = 'Oops! An error occurred...';
+      this.requestResponse = 'Oops! An error has occurred...';
       this.requestCompleted = true;
       this.$store.dispatch('warnForSessionRefresh', false);
       this.loading = false;
@@ -93,34 +90,12 @@ export default {
 
 <style scoped>
 .card {
-  right: 0.5rem;
-  bottom: 0.5rem;
+  right: 1rem;
+  bottom: 1rem;
   position: fixed;
   z-index: 9999;
-  background-color: #007bff;
-  color: #fff;
-  opacity: 0.75;
-  width: 11rem;
-  height: 11rem;
+  max-width: 200px;
   text-align: center;
-}
-
-.card-link-button {
-  outline: none;
-  border: 1px solid #fff;
-  background-color: transparent;
-  color: #fff;
-  cursor: pointer;
-  font-weight: bold;
-  padding: 5px 10px;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 2s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+  border: 1px solid var(--secondary);
 }
 </style>

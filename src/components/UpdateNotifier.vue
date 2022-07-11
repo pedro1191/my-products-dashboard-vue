@@ -1,5 +1,5 @@
 <template>
-  <transition name="ease-in">
+  <transition name="fade-in">
     <div class="update-notifier bg-light" v-if="updateExists">
       <p>There is an update available!</p>
       <button
