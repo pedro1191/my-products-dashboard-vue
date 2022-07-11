@@ -111,13 +111,13 @@ body {
   border-color: #c25a5e;
 }
 
-.ease-in-enter-active {
-  animation: ease-in 1s;
+.fade-in-enter-active {
+  animation: fade-in 1s;
 }
-.ease-in-leave-active {
-  animation: ease-in 1s reverse;
+.fade-in-leave-active {
+  animation: fade-in 1s reverse;
 }
-@keyframes ease-in {
+@keyframes fade-in {
   0% {
     opacity: 0;
   }
