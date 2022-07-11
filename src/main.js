@@ -1,5 +1,13 @@
 import { createApp } from 'vue';
-import { faBars, faBackward, faCode } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faBackward,
+  faCode,
+  faPen,
+  faPlus,
+  faSearch,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import App from './App.vue';
@@ -8,7 +16,7 @@ import router from './router';
 import store from './store';
 import VueGtag from 'vue-gtag';
 
-library.add(faBars, faBackward, faCode);
+library.add(faBars, faBackward, faCode, faPen, faPlus, faSearch, faTrashCan);
 
 createApp(App)
   .component('font-awesome-icon', FontAwesomeIcon)

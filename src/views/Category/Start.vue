@@ -1,31 +1,38 @@
 <template>
-  <div class="categories">
+  <div class="categories pt-5">
     <div class="row">
-      <div class="col-sm-6 mb-2">
+      <div class="col-sm-5 col-md-7 my-3">
         <router-link
-          class="btn btn-secondary float-left"
+          class="btn btn-insert float-left"
           :to="{ name: 'categoriesInsert' }"
         >
-          New Chef
+          <font-awesome-icon class="mr-1" icon="fa-plus" /> New Chef
         </router-link>
       </div>
-      <div class="col-sm-6">
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control search-control"
-            placeholder="Search..."
-            @input="onSearch"
-            v-model="query"
-          />
-        </div>
+      <div class="col-sm-7 col-md-5 my-3">
+        <form class="form">
+          <div class="input-group ml-auto">
+            <input
+              type="text"
+              class="form-control search-control"
+              placeholder="Search..."
+              @input="onSearch"
+              v-model="query"
+            />
+            <div class="input-group-append">
+              <button class="btn" type="button">
+                <font-awesome-icon icon="fa-search" />
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
 
     <div class="categories-list">
       <ul class="list-unstyled" v-if="categories.length > 0">
         <li
-          class="media my-2"
+          class="media my-3 p-5 list-item-bg-light"
           v-for="category in categories"
           :key="category.id"
         >
@@ -38,21 +45,22 @@
               </div>
               <div class="col-md-4 col-lg-3 my-2 my-md-0 actions">
                 <router-link
-                  class="btn btn-outline-secondary mr-2"
+                  class="btn btn-update"
                   :to="{
                     name: 'categoriesUpdate',
                     params: { id: category.id },
                   }"
                 >
-                  Update
+                  <font-awesome-icon class="mr-1" icon="fa-pen" /> Update
                 </router-link>
                 <router-link
-                  class="btn btn-outline-danger"
+                  class="btn btn-delete ml-3"
                   :to="{
                     name: 'categoriesDelete',
                     params: { id: category.id },
                   }"
                 >
+                  <font-awesome-icon class="mr-1" icon="fa-trash-can" />
                   Delete
                 </router-link>
               </div>
@@ -195,9 +203,10 @@ export default {
 
 .actions {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
   align-content: center;
   align-items: flex-start;
+  flex-wrap: nowrap;
 }
 
 .search-control {
@@ -208,5 +217,20 @@ export default {
 
 .search-control:focus {
   box-shadow: none;
+}
+
+.input-group-append {
+  position: absolute;
+  right: 0;
+}
+
+.input-group-append button {
+  cursor: default;
+  border-bottom: 1px solid transparent;
+  z-index: 100;
+}
+
+.list-item-bg-light {
+  background-color: #f4f5f7;
 }
 </style>
