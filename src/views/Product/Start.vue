@@ -1,57 +1,84 @@
 <template>
-  <div class="products">
+  <div class="products pt-5">
     <div class="row">
-      <div class="col-sm-6 mb-2">
+      <div class="col-sm-5 col-md-7 my-3">
         <router-link
-          class="btn btn-secondary float-left"
+          class="btn btn-insert float-left"
           :to="{ name: 'productsInsert' }"
         >
+          <font-awesome-icon class="mr-1" icon="fa-plus" />
           New Dish
         </router-link>
       </div>
-      <div class="col-sm-6">
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control search-control"
-            placeholder="Search..."
-            @input="onSearch"
-            v-model="query"
-          />
-        </div>
+      <div class="col-sm-7 col-md-5 my-3">
+        <form class="form">
+          <div class="input-group ml-auto">
+            <input
+              type="text"
+              class="form-control search-control"
+              placeholder="Search..."
+              @input="onSearch"
+              v-model="query"
+            />
+            <div class="input-group-append">
+              <button class="btn" type="button">
+                <font-awesome-icon icon="fa-search" />
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
 
     <div class="products-list">
       <ul class="list-unstyled" v-if="products.length > 0">
-        <li class="media my-2" v-for="product in products" :key="product.id">
-          <img
-            :src="product.image"
-            class="thumbnail mr-3"
-            :alt="product.name"
-          />
-          <div class="media-body">
-            <div class="row">
-              <div class="col-md-8 col-lg-9">
-                <h3 class="mt-0 mb-1">
-                  <strong>{{ product.name }}</strong>
-                </h3>
-                <h5>{{ product.category.data.name }}</h5>
-                {{ product.description }}
+        <li
+          class="media my-3 p-5 list-item-bg-light"
+          v-for="product in products"
+          :key="product.id"
+        >
+          <div class="row">
+            <div class="col-auto">
+              <img :src="product.image" class="thumbnail" :alt="product.name" />
+            </div>
+            <div class="col">
+              <div class="row">
+                <div class="col pt-3 pt-md-0">
+                  <h3 class="mt-0 mb-1">
+                    <strong>{{ product.name }}</strong>
+                  </h3>
+                  <h5>{{ product.category.data.name }}</h5>
+                </div>
               </div>
-              <div class="col-md-4 col-lg-3 my-2 my-md-0 actions">
-                <router-link
-                  class="btn btn-outline-secondary mr-2"
-                  :to="{ name: 'productsUpdate', params: { id: product.id } }"
-                >
-                  Update
-                </router-link>
-                <router-link
-                  class="btn btn-outline-danger"
-                  :to="{ name: 'productsDelete', params: { id: product.id } }"
-                >
-                  Delete
-                </router-link>
+              <div class="row">
+                <div class="col py-3">
+                  {{ product.description }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="actions">
+                    <router-link
+                      class="btn btn-update"
+                      :to="{
+                        name: 'productsUpdate',
+                        params: { id: product.id },
+                      }"
+                    >
+                      <font-awesome-icon class="mr-1" icon="fa-pen" /> Update
+                    </router-link>
+                    <router-link
+                      class="btn btn-delete ml-3"
+                      :to="{
+                        name: 'productsDelete',
+                        params: { id: product.id },
+                      }"
+                    >
+                      <font-awesome-icon class="mr-1" icon="fa-trash-can" />
+                      Delete
+                    </router-link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -192,14 +219,15 @@ export default {
 }
 
 .thumbnail {
-  width: 96px;
+  max-width: 192px;
 }
 
 .actions {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
   align-content: center;
   align-items: flex-start;
+  flex-wrap: nowrap;
 }
 
 .search-control {
@@ -210,5 +238,20 @@ export default {
 
 .search-control:focus {
   box-shadow: none;
+}
+
+.input-group-append {
+  position: absolute;
+  right: 0;
+}
+
+.input-group-append button {
+  cursor: default;
+  border-bottom: 1px solid transparent;
+  z-index: 100;
+}
+
+.list-item-bg-light {
+  background-color: #f4f5f7;
 }
 </style>
