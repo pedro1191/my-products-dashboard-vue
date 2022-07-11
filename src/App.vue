@@ -11,17 +11,20 @@
     </div>
 
     <gws-session-refresh></gws-session-refresh>
+    <gws-update-notifier></gws-update-notifier>
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue';
 import SessionRefresh from './components/SessionRefresh.vue';
+import UpdateNotifier from './components/UpdateNotifier.vue';
 
 export default {
   components: {
     gwsNavbar: Navbar,
     gwsSessionRefresh: SessionRefresh,
+    gwsUpdateNotifier: UpdateNotifier,
   },
   created() {
     this.$store.dispatch('tryAutoLogin');
@@ -106,5 +109,20 @@ body {
   color: #000;
   background-color: #d36267;
   border-color: #c25a5e;
+}
+
+.ease-in-enter-active {
+  animation: ease-in 1s;
+}
+.ease-in-leave-active {
+  animation: ease-in 1s reverse;
+}
+@keyframes ease-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>
