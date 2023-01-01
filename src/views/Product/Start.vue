@@ -47,7 +47,7 @@
                   <h3 class="mt-0 mb-1">
                     <strong>{{ product.name }}</strong>
                   </h3>
-                  <h5>{{ product.category.data.name }}</h5>
+                  <h5>{{ product.category.name }}</h5>
                 </div>
               </div>
               <div class="row">
@@ -90,7 +90,7 @@
     </div>
 
     <gws-pagination
-      v-if="pagination.total_pages > 1"
+      v-if="pagination.last_page > 1"
       :pagination="pagination"
       @onLinkClicked="changePage($event)"
     >
@@ -147,7 +147,6 @@ export default {
     urlParams() {
       const params = {
         params: {
-          include: 'category',
           page: this.current_page,
         },
       };
@@ -178,7 +177,7 @@ export default {
         .get('/products', this.urlParams)
         .then((response) => {
           this.products = response.data.data;
-          this.pagination = response.data.meta.pagination;
+          this.pagination = response.data.meta;
           this.modal.loading = false;
         })
         .catch((error) => {

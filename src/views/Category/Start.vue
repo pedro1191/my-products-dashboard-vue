@@ -74,7 +74,7 @@
     </div>
 
     <gws-pagination
-      v-if="pagination.total_pages > 1"
+      v-if="pagination.last_page > 1"
       :pagination="pagination"
       @onLinkClicked="changePage($event)"
     >
@@ -161,7 +161,7 @@ export default {
         .get('/categories', this.urlParams)
         .then((response) => {
           this.categories = response.data.data;
-          this.pagination = response.data.meta.pagination;
+          this.pagination = response.data.meta;
           this.modal.loading = false;
         })
         .catch((error) => {
