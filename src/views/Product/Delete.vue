@@ -103,13 +103,13 @@ export default {
     this.modal.loading = true;
 
     axios
-      .get(`/products/${this.$route.params.id}?include=category`)
+      .get(`/products/${this.$route.params.id}`)
       .then((response) => {
         this.modal.loading = false;
         this.form.name = response.data.data.name;
         this.form.description = response.data.data.description;
         this.form.image = response.data.data.image;
-        this.form.category_name = response.data.data.category.data.name;
+        this.form.category_name = response.data.data.category.name;
       })
       .catch((error) => {
         this.onHttpRequestError(error);
