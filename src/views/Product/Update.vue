@@ -220,13 +220,13 @@ export default {
         this.categories = response.data.data;
 
         axios
-          .get(`/products/${this.$route.params.id}?include=category`)
+          .get(`/products/${this.$route.params.id}`)
           .then((response) => {
             this.modal.loading = false;
             this.form.name = response.data.data.name;
             this.form.description = response.data.data.description;
             this.current_image = response.data.data.image;
-            this.form.category_id = response.data.data.category.data.id;
+            this.form.category_id = response.data.data.category.id;
           })
           .catch((error) => {
             this.onHttpRequestError(error);
