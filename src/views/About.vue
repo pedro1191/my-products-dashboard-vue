@@ -17,7 +17,7 @@
       >
         REST API
       </a>
-      where the administrator can log in and manage the categories and things.
+      where the administrator can log in and manage the categories and items.
       The "theme" chosen here relates to culinary, but it could have been
       anything else.
     </p>
