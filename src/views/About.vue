@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>FoodClub Dashboard</h1>
-    <p><strong>Version:</strong> 1.0.0</p>
+    <p><strong>Version:</strong> 2.0.0</p>
     <p>
       This is a Progressive Web Application built using Vue.js that works as a
       dashboard for the
