@@ -2,7 +2,7 @@
 
 Hello and welcome!
 
-This is a Progressive Web Application built using [Vue.js](https://vuejs.org/) that works as a dashboard for the [FoodClub](https://github.com/pedro1191/my-products-vue) application. It consumes a [REST API](https://github.com/pedro1191/my-products-dashboard-rest) where the administrator can log in and manage the categories and things.
+This is a Progressive Web Application built using [Vue.js](https://vuejs.org/) that works as a dashboard for the [FoodClub](https://github.com/pedro1191/my-products-vue) application. It consumes a [REST API](https://github.com/pedro1191/my-products-dashboard-rest) where the administrator can log in and manage the categories and items.
 
 The following technologies are being used:
 - [axios](https://github.com/axios/axios): to consume the [REST API](https://github.com/pedro1191/my-products-dashboard-rest)
